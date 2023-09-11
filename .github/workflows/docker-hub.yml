@@ -32,3 +32,4 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             --tag ${{env.DOCKER_IMAGE}}:${{env.VERSION}}-${{env.SUB_TAG}} \
             --push .
+  
