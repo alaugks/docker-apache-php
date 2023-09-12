@@ -11,7 +11,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get --allow-releaseinfo-change update
 
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     git
 
 ########################################################################################################################
@@ -44,7 +44,7 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
 
 
 ### ZIP
-RUN apt-get install -y  \
+RUN apt-get install -y --no-install-recommends  \
         libzip-dev \
         zip
 
@@ -59,7 +59,7 @@ RUN docker-php-ext-install \
 
 
 ### IMAGEMAGIK
-RUN apt-get install -y \
+RUN apt-get install  -y --no-install-recommends \
         libmagickwand-dev \
         libwebp-dev \
         webp
@@ -72,7 +72,7 @@ RUN docker-php-ext-enable \
 
 
 ### GD
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
