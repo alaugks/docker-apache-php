@@ -1,1 +1,4 @@
 .idea
+
+# Ignore submodules
+.docker/php-fpm
