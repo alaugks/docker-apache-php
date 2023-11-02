@@ -1,0 +1,3 @@
+[submodule ".docker/php-fpm"]
+	path = .docker/php-fpm
+	url = git@alaugks.github.com:alaugks/docker-image-php-fpm.git
