@@ -33,10 +33,10 @@ jobs:
           cache-to: type=gha,mode=max
           context: .
           file: Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           build-args: |
             ENABLE_XDEBUG=yes
-          push: false
+          load: true
           tags: alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Test run image (with XDebug)
