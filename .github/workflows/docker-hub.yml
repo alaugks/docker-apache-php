@@ -34,6 +34,8 @@ jobs:
           context: .
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            ENABLE_XDEBUG=yes
           push: false
           tags: alaugks/apache-php:${{github.ref_name}}-xdebug
 
