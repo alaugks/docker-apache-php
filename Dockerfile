@@ -26,60 +26,64 @@ RUN apt-get install -y --no-install-recommends \
 # > PHP
 ########################################################################################################################
 
-#    ### COMPOSER
-#    RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
-#        && mv composer.phar /usr/local/bin/composer
-#
-#
-#    ### ZIP
-#    RUN apt-get install -y --no-install-recommends  \
-#            libzip-dev \
-#            zip
-#
-#    RUN docker-php-ext-install \
-#            zip
-#
-#
-#    ### PDO
-#    RUN docker-php-ext-install \
-#            pdo\
-#            pdo_mysql
-#
-#
-#    ### IMAGEMAGIK
-#    RUN apt-get install -y --no-install-recommends \
-#            libmagickwand-dev \
-#            libwebp-dev \
-#            webp
-#
-#    RUN pecl install \
-#            imagick
-#
-#    RUN docker-php-ext-enable \
-#            imagick
-#
-#
-#    ### GD
-#    RUN apt-get install -y --no-install-recommends \
-#            libfreetype6-dev \
-#            libjpeg62-turbo-dev \
-#            libpng-dev \
-#            zlib1g-dev \
-#            libicu-dev
-#
-#
-#    RUN docker-php-ext-configure \
-#        gd \
-#    #         --with-freetype \
-#              --with-jpeg \
-#              --with-webp \
-#        && docker-php-ext-install \
-#              gd
-#
-#
-#    ### INTL
-#    RUN docker-php-ext-install \
-#          intl
+### COMPOSER
+RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
+    && mv composer.phar /usr/local/bin/composer
+
+
+### ZIP
+RUN apt-get install -y --no-install-recommends  \
+        libzip-dev \
+        zip
+
+RUN docker-php-ext-install \
+        zip
+
+
+### PDO
+RUN docker-php-ext-install \
+        pdo\
+        pdo_mysql
+
+
+### IMAGEMAGIK
+RUN apt-get install -y --no-install-recommends \
+        libmagickwand-dev \
+        libwebp-dev \
+        webp
+
+RUN pecl install \
+        imagick
+
+RUN docker-php-ext-enable \
+        imagick
+
+
+### GD
+RUN apt-get install -y --no-install-recommends \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        zlib1g-dev \
+        libicu-dev
+
+
+RUN docker-php-ext-configure \
+    gd \
+#         --with-freetype \
+          --with-jpeg \
+          --with-webp \
+    && docker-php-ext-install \
+          gd
+
+
+### INTL
+RUN docker-php-ext-install \
+      intl
+
+### EXIF
+RUN docker-php-ext-install \
+      exif
 
 #### XDEBUG 3
 RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
@@ -90,10 +94,6 @@ RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
     && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
     ; \
 fi
-
-### EXIF
-#RUN docker-php-ext-install \
-#      exif
 
 ########################################################################################################################
 # < PHP
