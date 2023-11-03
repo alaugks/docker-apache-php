@@ -26,27 +26,27 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
-      - name: Build-Test (with XDebug)
-        uses: docker/build-push-action@v5
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          context: .
-          file: Dockerfile
-          platforms: linux/amd64,linux/arm64
-          build-args: |
-            ENABLE_XDEBUG=yes
-          load: true
-          tags: alaugks/apache-php:${{github.ref_name}}-xdebug
-
-      - name: Test run image (with XDebug)
-        run: |
-          docker run \
-            -p 8080:80 \
-            --rm alaugks/apache-php:${{github.ref_name}}-xdebug
+#      - name: Build-Test (with XDebug)
+#        uses: docker/build-push-action@v4.2.1
+#        with:
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
+#          context: .
+#          file: Dockerfile
+#          platforms: linux/amd64,linux/arm64
+#          build-args: |
+#            ENABLE_XDEBUG=yes
+#          load: true
+#          tags: alaugks/apache-php:${{github.ref_name}}-xdebug
+#
+#      - name: Test run image (with XDebug)
+#        run: |
+#          docker run \
+#            -p 8080:80 \
+#            --rm alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Build and push (with XDebug)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4.2.1
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -59,7 +59,7 @@ jobs:
           tags: alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4.2.1
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
