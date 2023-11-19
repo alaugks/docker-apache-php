@@ -1,4 +1,10 @@
 .docker
+.github
 .idea
 app
-local_build.sh
+.env
+.gitignore
+000-default.conf
+build.sh
+docker-compose.yml
+run.sh

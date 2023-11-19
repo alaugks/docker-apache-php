@@ -11,12 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Load .env file
-        uses: xom9ikk/dotenv@v2
-        with:
-          path: ./
-          load-mode: strict
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -27,7 +21,7 @@ jobs:
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
 #      - name: Build-Test (with XDebug)
-#        uses: docker/build-push-action@v4.2.1
+#        uses: docker/build-push-action@v5.1.0
 #        with:
 #          cache-from: type=gha
 #          cache-to: type=gha,mode=max
@@ -46,7 +40,7 @@ jobs:
 #            --rm alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Build and push (with XDebug)
-        uses: docker/build-push-action@v4.2.1
+        uses: docker/build-push-action@v5.1.0
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -59,7 +53,7 @@ jobs:
           tags: alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Build and push
-        uses: docker/build-push-action@v4.2.1
+        uses: docker/build-push-action@v5.1.0
         with:
           cache-from: type=gha
           cache-to: type=gha,mode=max
