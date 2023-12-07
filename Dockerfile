@@ -48,6 +48,7 @@ RUN docker-php-ext-install \
 
 ### IMAGEMAGIK
 RUN apt-get install -y --no-install-recommends \
+        imagemagick \
         libmagickwand-dev \
         libwebp-dev \
         webp
