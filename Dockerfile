@@ -1,4 +1,4 @@
-ARG VERSION=8.2.12
+ARG VERSION=8.2.14
 ARG ENABLE_XDEBUG="no"
 
 FROM php:${VERSION}-apache
@@ -88,7 +88,7 @@ RUN docker-php-ext-install \
 
 #### XDEBUG 3
 RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
-    pecl install xdebug-3.2.2 \
+    pecl install xdebug-3.3.1 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug,develop" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
