@@ -9,5 +9,5 @@ services:
       - 8081:80
     environment:
       APPLICATION_ENV: "docker"
-      PHP_IDE_CONFIG: "serverName=php8.local"
+      PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=xdebug_test"

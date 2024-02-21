@@ -27,7 +27,23 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <report>
+            <clover outputFile="tests/.report/clover.xml" />
+            <!-- cobertura outputFile="tests/report/cobertura.xml"/ -->
+            <!-- crap4j outputFile="tests/report/crap4j.xml" threshold="50"/ -->
+            <!-- html outputDirectory="tests/report" lowUpperBound="50" highLowerBound="90"/ -->
+            <!-- php outputFile="tests/report/coverage.php"/ -->
+            <!-- text outputFile="tests/report/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/ -->
+            <!-- xml outputDirectory="tests/report/xml-coverage"/ -->
+        </report>
     </coverage>
+
+    <logging>
+        <junit outputFile="tests/.report/junit.xml"/>
+        <!-- teamcity outputFile="teamcity.txt"/ -->
+        <!-- testdoxHtml outputFile="testdox.html"/ -->
+        <!-- testdoxText outputFile="testdox.txt"/ -->
+    </logging>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
