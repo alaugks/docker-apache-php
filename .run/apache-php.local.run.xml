@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="apache-php.local" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="php8.local" session_id="xdebug_test">
+    <method v="2" />
+  </configuration>
+</component>

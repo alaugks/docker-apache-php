@@ -17,3 +17,5 @@
 /app/phpunit.xml
 /app/.phpunit.result.cache
 ###< phpunit/phpunit ###
+
+app/tests/.report

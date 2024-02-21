@@ -10,13 +10,14 @@ echo $tag_xdebug;
 docker ps -a | awk '{ print $1,$2 }' | grep $tag | awk '{print $1 }' | xargs -I {} docker stop {}
 docker ps -a | awk '{ print $1,$2 }' | grep $tag | awk '{print $1 }' | xargs -I {} docker rm {}
 
-docker build . \
-  --file Dockerfile \
-  --tag $tag
+#docker build . \
+#  --file Dockerfile \
+#  --tag $tag
 
 docker build . \
   --file Dockerfile \
   --build-arg ENABLE_XDEBUG=yes \
+  --no-cache \
   --tag $tag_xdebug
 
 #
