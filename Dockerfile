@@ -88,12 +88,11 @@ RUN docker-php-ext-install \
 
 #### XDEBUG 3
 RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
-    pecl install xdebug-3.3.1 \
+    pecl install xdebug-3.2.2 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
     ; \
 fi
 
