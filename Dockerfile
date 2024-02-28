@@ -87,6 +87,10 @@ RUN docker-php-ext-install \
       exif
 
 #### XDEBUG 3
+RUN touch /tmp/xdebug.log
+RUN chown -Rf www-data:www-data /tmp/xdebug.log
+RUN chmod 755 -Rf /tmp/xdebug.log
+
 RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
     pecl install xdebug-3.2.2 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
@@ -96,7 +100,6 @@ RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
     && echo "xdebug.log=/tmp/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini \
     ; \
 fi
-
 ########################################################################################################################
 # < PHP
 ########################################################################################################################
