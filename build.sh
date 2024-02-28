@@ -2,8 +2,8 @@
 
 source .env
 
-tag=local/apache-php-mod:latest
-tag_xdebug=local/apache-php-mod-xdebug:latest
+tag=local/apache-php-mod:8.2.14.04
+tag_xdebug=local/apache-php-mod-xdebug:8.2.14.04-xdebug
 
 echo $tag_xdebug;
 
