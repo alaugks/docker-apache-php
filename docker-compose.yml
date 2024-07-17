@@ -1,7 +1,7 @@
 services:
   php:
-    container_name: apache_php_xdebug
-    image: alaugks/apache-php:8.2.21-v1.0
+    container_name: xdebug_test
+    image: local/apache-php-mod-xdebug:8.2.21-v1.0
     volumes:
       - ./app:/var/www/app
     ports:
