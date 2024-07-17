@@ -1,5 +1,5 @@
-ARG VERSION=8.2.14
-ARG ENABLE_XDEBUG="no"
+ARG VERSION=8.2.21
+ARG ENABLE_XDEBUG="off"
 
 FROM php:${VERSION}-apache
 
@@ -91,8 +91,8 @@ RUN touch /tmp/xdebug.log
 RUN chown -Rf www-data:www-data /tmp/xdebug.log
 RUN chmod 755 -Rf /tmp/xdebug.log
 
-RUN if [ "${ENABLE_XDEBUG}" = "yes" ]; then \
-    pecl install xdebug-3.2.2 \
+RUN if [ "${ENABLE_XDEBUG}" = "on" ]; then \
+    pecl install xdebug-3.3.2 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \

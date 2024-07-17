@@ -1,13 +1,11 @@
-version: '3.6'
 services:
   php:
     container_name: xdebug_test
-    image: local/apache-php-mod-xdebug:latest
+    image: local/apache-php-mod-xdebug:8.2.14-v1.5
     volumes:
-      - ./app:/var/www/html
+      - ./app:/var/www/app
     ports:
-      - 8081:80
+      - 8080:80
     environment:
-      APPLICATION_ENV: "docker"
       PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=xdebug_test"
