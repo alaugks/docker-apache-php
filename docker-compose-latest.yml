@@ -6,10 +6,10 @@ services:
       dockerfile: Dockerfile
       context: .
     volumes:
-      - ./app:/var/www/html
+      - ./app:/var/www/app
     ports:
       - 10082:80
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=xdebug_test"
-      ENABLE_XDEBUG: "yes"
+      ENABLE_XDEBUG: "on"
