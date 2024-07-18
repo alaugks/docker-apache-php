@@ -1,5 +1,5 @@
 ARG VERSION=8.2.21
-ARG ENABLE_XDEBUG="off"
+ARG ENABLE_XDEBUG="0"
 
 FROM php:${VERSION}-apache
 
@@ -91,7 +91,7 @@ RUN touch /tmp/xdebug.log
 RUN chown -Rf www-data:www-data /tmp/xdebug.log
 RUN chmod 755 -Rf /tmp/xdebug.log
 
-RUN if [ "${ENABLE_XDEBUG}" = "on" ]; then \
+RUN if [ "${ENABLE_XDEBUG}" = "1" ]; then \
     pecl install xdebug-3.3.2 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
