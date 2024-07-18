@@ -123,4 +123,6 @@ RUN apt-get clean
 
 EXPOSE 80
 
+WORKDIR /var/www/app
+
 CMD apache2-foreground
