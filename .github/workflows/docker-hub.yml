@@ -25,19 +25,19 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
-      - name: Build and push (with XDebug)
-        uses: docker/build-push-action@v6.4.1
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          context: .
-          file: Dockerfile
-          platforms: linux/amd64,linux/arm64
-          build-args: |
-            ENABLE_XDEBUG=1
-          push: false
-          load: true
-          tags: ${{env.IMAGE_NAME_XDEBUG}}
+#      - name: Build and push (with XDebug)
+#        uses: docker/build-push-action@v6.4.1
+#        with:
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
+#          context: .
+#          file: Dockerfile
+#          platforms: linux/amd64,linux/arm64
+#          build-args: |
+#            ENABLE_XDEBUG=1
+#          push: false
+#          load: true
+#          tags: ${{env.IMAGE_NAME_XDEBUG}}
 
       - name: Test run image (with XDebug)
         run: |
