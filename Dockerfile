@@ -86,6 +86,11 @@ RUN docker-php-ext-install \
 RUN docker-php-ext-install \
       exif
 
+# Redis
+RUN pecl install redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable redis
+
 #### XDEBUG 3
 RUN touch /tmp/xdebug.log
 RUN chown -Rf www-data:www-data /tmp/xdebug.log
