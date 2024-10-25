@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         backupGlobals="false"
-         colors="true"
-         bootstrap="tests/bootstrap.php"
-         convertDeprecationsToExceptions="false"
->
-    <php>
-        <ini name="display_errors" value="1" />
-        <ini name="error_reporting" value="-1" />
-        <server name="APP_ENV" value="test" force="true" />
-        <server name="SHELL_VERBOSITY" value="-1" />
-        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="9.5" />
-    </php>
-
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheResultFile=".phpunit.cache/test-results"
+         executionOrder="depends,defects"
+         forceCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         convertDeprecationsToExceptions="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="default">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -28,27 +23,20 @@
             <directory suffix=".php">src</directory>
         </include>
         <report>
-            <clover outputFile="tests/.report/clover.xml" />
-            <!-- cobertura outputFile="tests/report/cobertura.xml"/ -->
-            <!-- crap4j outputFile="tests/report/crap4j.xml" threshold="50"/ -->
-            <!-- html outputDirectory="tests/report" lowUpperBound="50" highLowerBound="90"/ -->
-            <!-- php outputFile="tests/report/coverage.php"/ -->
-            <!-- text outputFile="tests/report/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/ -->
-            <!-- xml outputDirectory="tests/report/xml-coverage"/ -->
+            <clover outputFile=".phpunit.report/clover.xml" />
+            <!-- cobertura outputFile=".phpunit.report/cobertura.xml" / -->
+            <!-- crap4j outputFile=".phpunit.report/crap4j.xml" threshold="50" / -->
+            <html outputDirectory=".phpunit.report" lowUpperBound="50" highLowerBound="90" />
+            <!-- php outputFile=".phpunit.report/coverage.php" / -->
+            <!-- text outputFile=".phpunit.report/coverage.txt" showUncoveredFiles="false" showOnlySummary="true" / -->
+            <!-- xml outputDirectory=".phpunit.report/xml-coverage" / -->
         </report>
     </coverage>
 
     <logging>
-        <junit outputFile="tests/.report/junit.xml"/>
-        <!-- teamcity outputFile="teamcity.txt"/ -->
-        <!-- testdoxHtml outputFile="testdox.html"/ -->
-        <!-- testdoxText outputFile="testdox.txt"/ -->
+        <junit outputFile=".phpunit.report/junit.xml"/>
+        <!-- teamcity outputFile=".phpunit.report/teamcity.txt" / -->
+        <!-- testdoxHtml outputFile=".phpunit.report/testdox.html" / -->
+        <!-- testdoxText outputFile=".phpunit.report/testdox.txt" / -->
     </logging>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-    </listeners>
-
-    <extensions>
-    </extensions>
 </phpunit>
