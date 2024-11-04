@@ -4,6 +4,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+      args:
+        ENABLE_XDEBUG: 0
     volumes:
       - ./app:/var/www/app
     ports:
@@ -11,4 +13,3 @@ services:
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=apache_php_xdebug"
-      ENABLE_XDEBUG: "0"
