@@ -1,4 +1,4 @@
-ARG VERSION=8.2.21
+ARG VERSION=7.4.33
 ARG ENABLE_XDEBUG="0"
 
 FROM php:${VERSION}-apache
@@ -97,12 +97,16 @@ RUN chown -Rf www-data:www-data /tmp/xdebug.log
 RUN chmod 755 -Rf /tmp/xdebug.log
 
 RUN if [ "${ENABLE_XDEBUG}" = "1" ]; then \
-    pecl install xdebug-3.3.2 \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.log=/tmp/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    pecl install xdebug-2.9.8 \
+        && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.default_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.coverage_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_autostart=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_connect_back=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
+        && echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
     ; \
 fi
 ########################################################################################################################

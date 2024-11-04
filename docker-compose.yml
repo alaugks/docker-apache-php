@@ -1,11 +1,12 @@
 services:
   php:
     container_name: xdebug_test
-    image: local/apache-php-mod-xdebug:8.2.21-v1.0
+    image: local/apache-php-mod-xdebug:7.4.33-v1.0
     volumes:
       - ./app:/var/www/app
     ports:
-      - 8080:80
+      - "8080:80"
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
-      XDEBUG_CONFIG: "idekey=xdebug_test"
+      XDEBUG_CONFIG: "idekey=apache_php_xdebug"
+      ENABLE_XDEBUG: "1"
