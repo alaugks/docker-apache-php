@@ -13,4 +13,3 @@ services:
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=apache_php_xdebug"
-      ENABLE_XDEBUG: "1"

@@ -1,7 +1,11 @@
 services:
   php:
-    container_name: xdebug_test
-    image: local/apache-php-mod-xdebug:7.4.33-v1.0
+    container_name: apache_php_xdebug
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        ENABLE_XDEBUG: 0
     volumes:
       - ./app:/var/www/app
     ports:
@@ -9,4 +13,3 @@ services:
     environment:
       PHP_IDE_CONFIG: "serverName=localhost"
       XDEBUG_CONFIG: "idekey=apache_php_xdebug"
-      ENABLE_XDEBUG: "1"
