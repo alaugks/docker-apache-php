@@ -13,7 +13,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # > Global
 ########################################################################################################################
 
-RUN apt-get --allow-releaseinfo-change update
+RUN apt-get --allow-releaseinfo-change update --fix-missing
 
 RUN apt-get install -y --no-install-recommends \
     git
@@ -34,7 +34,8 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
 ### ZIP
 RUN apt-get install -y --no-install-recommends  \
         libzip-dev \
-        zip
+        zip \
+        unzip
 
 RUN docker-php-ext-install \
         zip
