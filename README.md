@@ -14,7 +14,7 @@ Core, ctype, curl, date, dom, exif, fileinfo, filter, gd, hash, iconv, imagick, 
 docker compose -f docker-compose.yml up -d --build
 ```
 
-### Build witt XDebug
+### Build with XDebug
 
 ```bash
 docker compose -f docker-compose-xdebug.yml up -d --build
