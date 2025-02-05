@@ -26,7 +26,7 @@ RUN apt-get install -y --no-install-recommends \
 ########################################################################################################################
 
 ### COMPOSER
-RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
+RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/9e43d8a9b16fffa4dc9b090b9104dab7d815424a/web/download/2.8.5/composer.phar \
     && mv composer.phar /usr/local/bin/composer
 
 
