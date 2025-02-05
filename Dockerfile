@@ -47,17 +47,17 @@ RUN docker-php-ext-install \
 
 
 ### IMAGEMAGIK
-RUN apt-get install -y --no-install-recommends \
-        imagemagick \
-        libmagickwand-dev \
-        libwebp-dev \
-        webp
-
-RUN pecl install \
-        imagick
-
-RUN docker-php-ext-enable \
-        imagick
+#RUN apt-get install -y --no-install-recommends \
+#        imagemagick \
+#        libmagickwand-dev \
+#        libwebp-dev \
+#        webp
+#
+#RUN pecl install \
+#        imagick
+#
+#RUN docker-php-ext-enable \
+#        imagick
 
 
 ### GD
