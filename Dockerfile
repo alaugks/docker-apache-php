@@ -61,21 +61,21 @@ RUN docker-php-ext-install \
 
 
 ### GD
-RUN apt-get install -y --no-install-recommends \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        zlib1g-dev \
-        libicu-dev
-
-
-RUN docker-php-ext-configure \
-    gd \
-#         --with-freetype \
-          --with-jpeg \
-          --with-webp \
-    && docker-php-ext-install \
-          gd
+#RUN apt-get install -y --no-install-recommends \
+#        libfreetype6-dev \
+#        libjpeg62-turbo-dev \
+#        libpng-dev \
+#        zlib1g-dev \
+#        libicu-dev
+#
+#
+#RUN docker-php-ext-configure \
+#    gd \
+##         --with-freetype \
+#          --with-jpeg \
+#          --with-webp \
+#    && docker-php-ext-install \
+#          gd
 
 
 ### INTL
