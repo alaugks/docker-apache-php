@@ -2,7 +2,9 @@ name: Push Image
 run-name: Push Image [${{github.ref_name}}]
 on:
   workflow_dispatch:
-
+  push:
+    tags:
+      - '8.3.16-v1.0-*'
 jobs:
   docker:
     runs-on: ubuntu-latest
