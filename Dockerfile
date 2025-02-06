@@ -1,6 +1,6 @@
 ARG ENABLE_XDEBUG="0"
 
-FROM php:8.3.16-apache@sha256:48a85685612278879f19187a246eaf58fdbffa4e0b751b409fbd992be86b06d2
+FROM php:8.3.16-apache@sha256:0cf609bab6581684ed08145132a88ec2a47fb1ddfd14148945076862492ffe8b
 
 ARG ENABLE_XDEBUG
 
@@ -52,10 +52,10 @@ RUN docker-php-ext-install \
 #        libmagickwand-dev \
 #        libwebp-dev \
 #        webp
-#
+
 #RUN pecl install \
 #        imagick
-#
+
 #RUN docker-php-ext-enable \
 #        imagick
 
@@ -67,8 +67,8 @@ RUN docker-php-ext-install \
 #        libpng-dev \
 #        zlib1g-dev \
 #        libicu-dev
-#
-#
+
+
 #RUN docker-php-ext-configure \
 #    gd \
 ##         --with-freetype \
@@ -81,15 +81,15 @@ RUN docker-php-ext-install \
 #### INTL
 #RUN docker-php-ext-install \
 #      intl
-#
+
 #### EXIF
 #RUN docker-php-ext-install \
 #      exif
-#
-## Redis
-#RUN pecl install redis \
-#    && rm -rf /tmp/pear \
-#    && docker-php-ext-enable redis
+
+# Redis
+RUN pecl install redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable redis
 
 #### XDEBUG 3
 RUN touch /tmp/xdebug.log
