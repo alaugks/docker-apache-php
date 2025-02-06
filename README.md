@@ -1,4 +1,4 @@
-# Apache PHP (with XDebug) Docker Image
+# Apache and PHP 8.2.27 (with XDebug) Docker Image
 
 https://hub.docker.com/r/alaugks/apache-php/tags
 
