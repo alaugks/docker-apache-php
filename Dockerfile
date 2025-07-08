@@ -1,6 +1,6 @@
 ARG ENABLE_XDEBUG="0"
 
-FROM php:8.2.27-apache@sha256:ca282366e0c44af2970e2e2217c770883ae41f86274ab47fcdc1432706b5c4a0
+FROM php:8.2.29-apache@sha256:934f83240389df24442892b6cba15b71515c0e38abd35182e0029274f036fb6a
 
 ARG ENABLE_XDEBUG
 
@@ -45,6 +45,8 @@ RUN docker-php-ext-install \
         pdo\
         pdo_mysql
 
+### mysqli
+RUN docker-php-ext-install mysqli
 
 ### IMAGEMAGIK
 RUN apt-get install -y --no-install-recommends \
