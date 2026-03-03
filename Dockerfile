@@ -1,6 +1,6 @@
 ARG ENABLE_XDEBUG="0"
 
-FROM php:8.2.29-apache@sha256:934f83240389df24442892b6cba15b71515c0e38abd35182e0029274f036fb6a
+FROM php:8.4.18-apache@sha256:f136434142729ffb11936a2dadd898812bbbc94eae23e9e1b2476b81e313eea0
 
 ARG ENABLE_XDEBUG
 
@@ -26,7 +26,7 @@ RUN apt-get install -y --no-install-recommends \
 ########################################################################################################################
 
 ### COMPOSER
-RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/9e43d8a9b16fffa4dc9b090b9104dab7d815424a/web/download/2.8.5/composer.phar \
+RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/09a1f131c28d6c496f6bddcbf6cebf34502ad9bc/web/download/2.9.5/composer.phar \
     && mv composer.phar /usr/local/bin/composer
 
 
@@ -99,7 +99,7 @@ RUN chown -Rf www-data:www-data /tmp/xdebug.log
 RUN chmod 755 -Rf /tmp/xdebug.log
 
 RUN if [ "${ENABLE_XDEBUG}" = "1" ]; then \
-    pecl install xdebug-3.3.2 \
+    pecl install xdebug-3.5.0 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
@@ -132,4 +132,11 @@ EXPOSE 80
 
 WORKDIR /var/www/app
 
-CMD apache2-foreground
+# Set ownership of WORKDIR to www-data
+RUN chown -R www-data:www-data /var/www/app
+
+# Ensure Apache runs as www-data (already default in base image, but explicit here)
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+
+CMD ["apache2-foreground"]

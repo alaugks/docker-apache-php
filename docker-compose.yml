@@ -1,6 +1,6 @@
 services:
   php:
-    container_name: apache_php_xdebug
+    container_name: apache_php
     build:
       dockerfile: Dockerfile
       context: .
