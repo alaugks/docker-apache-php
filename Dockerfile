@@ -15,7 +15,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get --allow-releaseinfo-change update --fix-missing
 
 RUN apt-get install -y --no-install-recommends \
-    git
+    git \
+    acl
 
 ########################################################################################################################
 # > Global
@@ -27,7 +28,8 @@ RUN apt-get install -y --no-install-recommends \
 
 ### COMPOSER
 RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/09a1f131c28d6c496f6bddcbf6cebf34502ad9bc/web/download/2.9.5/composer.phar \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
 
 ### ZIP
@@ -132,11 +134,12 @@ EXPOSE 80
 
 WORKDIR /var/www/app
 
-# Set ownership of WORKDIR to www-data
-RUN chown -R www-data:www-data /var/www/app
-
 # Ensure Apache runs as www-data (already default in base image, but explicit here)
 ENV APACHE_RUN_USER=www-data
 ENV APACHE_RUN_GROUP=www-data
 
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
