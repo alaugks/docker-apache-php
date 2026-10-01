@@ -32,6 +32,23 @@ docker compose -f docker-compose-xdebug.yml up -d --build
 
 Run `./build-local.sh --help` for all options.
 
+## Docker Compose Example
+
+```yaml
+services:
+  php:
+    container_name: your_projekt_local
+    image: alaugks/apache-php:8.4.26-rc1-xdebug
+    volumes:
+      - ./app:/var/www/app
+    ports:
+      - "8003:80"
+    environment:
+      APPLICATION_ENV: "docker"
+      PHP_IDE_CONFIG: "serverName=your_projekt_local"
+      XDEBUG_CONFIG: "idekey=your_projekt"
+```
+
 ## Frontend
 
 Open phpinfo() with http://localhost:8080
