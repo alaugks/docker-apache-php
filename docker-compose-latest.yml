@@ -1,0 +1,15 @@
+# For local test build.
+services:
+  php:
+    container_name: apache_php_xdebug_local_build
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./app:/var/www/app
+    ports:
+      - 10082:80
+    environment:
+      PHP_IDE_CONFIG: "serverName=localhost"
+      XDEBUG_CONFIG: "idekey=xdebug_test"
+      ENABLE_XDEBUG: "on"
