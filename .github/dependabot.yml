@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Branch 8.4 (Default)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -7,5 +8,18 @@ updates:
 
   - package-ecosystem: "docker"
     directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Branch 8.5
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "8.5"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    target-branch: "8.5"
     schedule:
       interval: "weekly"
