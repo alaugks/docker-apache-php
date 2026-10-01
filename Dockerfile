@@ -1,7 +1,6 @@
-ARG VERSION=8.2.24
 ARG ENABLE_XDEBUG="0"
 
-FROM php:${VERSION}-apache
+FROM php:8.2.27-apache@sha256:ebff6c192441511dc7594e9ca877501fab9e2b3643117016ffbeb40e161aa4ef
 
 ARG ENABLE_XDEBUG
 
@@ -27,7 +26,7 @@ RUN apt-get install -y --no-install-recommends \
 ########################################################################################################################
 
 ### COMPOSER
-RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls --2 \
+RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/9e43d8a9b16fffa4dc9b090b9104dab7d815424a/web/download/2.8.5/composer.phar \
     && mv composer.phar /usr/local/bin/composer
 
 
