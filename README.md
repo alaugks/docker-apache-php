@@ -2,7 +2,7 @@
 
 https://hub.docker.com/r/alaugks/apache-php/tags
 
-Based on `php:8.4.18-apache`.
+Based on `php:8.4.26-apache`.
 
 ## PHP Modules
 
@@ -26,8 +26,8 @@ docker compose -f docker-compose-xdebug.yml up -d --build
 
 ```bash
 ./build-local.sh
-./build-local.sh --tag 8.4.18
-./build-local.sh --tag 8.4.18 --with-xdebug
+./build-local.sh --tag 8.4.26
+./build-local.sh --tag 8.4.26 --with-xdebug
 ```
 
 Run `./build-local.sh --help` for all options.
