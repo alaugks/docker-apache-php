@@ -44,6 +44,19 @@ docker compose -f docker-compose-xdebug.yml up -d --build
 
 Run `./build-local.sh --help` for all options.
 
+### Release (Docker Hub)
+
+The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) builds and pushes both images in a single step using `docker buildx bake` and [`docker-bake.hcl`](docker-bake.hcl):
+
+| Image | Target |
+|---|---|
+| `alaugks/apache-php:<ref>` | `production` |
+| `alaugks/apache-php:<ref>-xdebug` | `xdebug` |
+
+`<ref>` is the branch or tag the workflow is run on. Both targets are built for `linux/amd64` and `linux/arm64`.
+
+`docker-bake.hcl` uses the GitHub Actions cache and is therefore meant for CI. Use `./build-local.sh` for local builds.
+
 ## Docker Compose Example
 
 ### Production (without XDebug)
