@@ -1,8 +1,4 @@
-ARG ENABLE_XDEBUG="0"
-
-FROM php:8.4.26-apache@sha256:75325cceea4f9a8200f4e9e146e8155ec1b6466b2957b87accf0286b94547cbd
-
-ARG ENABLE_XDEBUG
+FROM php:8.4.26-apache@sha256:75325cceea4f9a8200f4e9e146e8155ec1b6466b2957b87accf0286b94547cbd AS base
 
 SHELL ["/bin/bash", "-c"]
 
@@ -47,22 +43,6 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp \
     && docker-php-ext-enable imagick redis \
     && rm -rf /tmp/pear
 
-#### XDEBUG 3
-RUN touch /tmp/xdebug.log \
-    && chown www-data:www-data /tmp/xdebug.log \
-    && chmod 755 /tmp/xdebug.log \
-    && if [ "${ENABLE_XDEBUG}" = "1" ]; then \
-        pecl install xdebug-3.5.0 \
-        && { \
-            echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
-            echo "xdebug.mode=debug,develop,coverage"; \
-            echo "xdebug.client_host=host.docker.internal"; \
-            echo "xdebug.start_with_request=yes"; \
-            echo "xdebug.log=/tmp/xdebug.log"; \
-        } > /usr/local/etc/php/conf.d/xdebug.ini \
-        && rm -rf /tmp/pear; \
-    fi
-
 ########################################################################################################################
 # < Global + PHP
 ########################################################################################################################
@@ -93,3 +73,37 @@ COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
+
+########################################################################################################################
+# > Target: xdebug (development)
+########################################################################################################################
+
+FROM base AS xdebug
+
+RUN touch /tmp/xdebug.log \
+    && chown www-data:www-data /tmp/xdebug.log \
+    && chmod 755 /tmp/xdebug.log \
+    && pecl install xdebug-3.5.0 \
+    && { \
+        echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
+        echo "xdebug.mode=debug,develop,coverage"; \
+        echo "xdebug.client_host=host.docker.internal"; \
+        echo "xdebug.start_with_request=yes"; \
+        echo "xdebug.log=/tmp/xdebug.log"; \
+    } > /usr/local/etc/php/conf.d/xdebug.ini \
+    && rm -rf /tmp/pear
+
+########################################################################################################################
+# < Target: xdebug
+########################################################################################################################
+
+
+########################################################################################################################
+# > Target: production (default, last stage)
+########################################################################################################################
+
+FROM base AS production
+
+########################################################################################################################
+# < Target: production
+########################################################################################################################

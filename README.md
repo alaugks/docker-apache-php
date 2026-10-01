@@ -10,6 +10,18 @@ Core, ctype, curl, date, dom, exif, fileinfo, filter, gd, hash, iconv, imagick, 
 
 ## Build
 
+The `Dockerfile` is multi-stage with a shared `base` and two targets:
+
+| Target | Description | Tag |
+|---|---|---|
+| `production` (default) | No XDebug | `<version>` |
+| `xdebug` | `base` + XDebug 3 | `<version>-xdebug` |
+
+```bash
+docker build --target production -t alaugks/apache-php:local .
+docker build --target xdebug -t alaugks/apache-php:local-xdebug .
+```
+
 ### Build without XDebug
 
 ```bash
@@ -34,11 +46,28 @@ Run `./build-local.sh --help` for all options.
 
 ## Docker Compose Example
 
+### Production (without XDebug)
+
+```yaml
+services:
+  php:
+    container_name: your_projekt
+    image: alaugks/apache-php:8.4.26
+    volumes:
+      - ./app:/var/www/app
+    ports:
+      - "8003:80"
+    environment:
+      APPLICATION_ENV: "production"
+```
+
+### Development (with XDebug)
+
 ```yaml
 services:
   php:
     container_name: your_projekt_local
-    image: alaugks/apache-php:8.4.26-rc1-xdebug
+    image: alaugks/apache-php:8.4.26-xdebug
     volumes:
       - ./app:/var/www/app
     ports:
