@@ -27,7 +27,8 @@ RUN apt-get install -y --no-install-recommends \
 
 ### COMPOSER
 RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/9e43d8a9b16fffa4dc9b090b9104dab7d815424a/web/download/2.8.5/composer.phar \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
 
 ### ZIP
