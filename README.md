@@ -4,6 +4,26 @@ https://hub.docker.com/r/alaugks/apache-php/tags
 
 Based on `php:8.4.26-apache`.
 
+## Table of Contents
+
+- [PHP Modules](#php-modules)
+- [Build](#build)
+  - [Build without XDebug](#build-without-xdebug)
+  - [Local Build Script](#local-build-script)
+  - [Release (Docker Hub)](#release-docker-hub)
+- [Docker Compose Example](#docker-compose-example)
+  - [Production (without XDebug)](#production-without-xdebug)
+  - [Development (with XDebug)](#development-with-xdebug)
+- [Configuration](#configuration)
+  - [Paths](#paths)
+  - [Change the DocumentRoot or the vhost](#change-the-documentroot-or-the-vhost)
+  - [Add Apache configuration](#add-apache-configuration)
+  - [Change the PHP configuration](#change-the-php-configuration)
+  - [XDebug](#xdebug)
+- [Frontend](#frontend)
+- [Docker Entrypoint](#docker-entrypoint)
+- [PHPUnit](#phpunit)
+
 ## PHP Modules
 
 Core, ctype, curl, date, dom, exif, fileinfo, filter, gd, hash, iconv, imagick, intl, json, libxml, mbstring, mysqli, mysqlnd, openssl, pcre, PDO, pdo_mysql, pdo_sqlite, Phar, posix, random, readline, redis, Reflection, session, SimpleXML, sodium, SPL, sqlite3, standard, tokenizer, xml, xmlreader, xmlwriter, zip, zlib
@@ -26,12 +46,6 @@ docker build --target xdebug -t alaugks/apache-php:local-xdebug .
 
 ```bash
 docker compose -f docker-compose.yml up -d --build
-```
-
-### Build with XDebug
-
-```bash
-docker compose -f docker-compose-xdebug.yml up -d --build
 ```
 
 ### Local Build Script
@@ -90,6 +104,128 @@ services:
       PHP_IDE_CONFIG: "serverName=your_projekt_local"
       XDEBUG_CONFIG: "idekey=your_projekt"
 ```
+
+## Configuration
+
+### Paths
+
+| What | Path in the container |
+|---|---|
+| Working directory (`WORKDIR`), mount your project here | `/var/www/app` |
+| `DocumentRoot` | `/var/www/app/public` |
+| `DirectoryIndex` | `index.php` |
+| Apache vhost (from [`000-default.conf`](000-default.conf)) | `/etc/apache2/sites-available/000-default.conf` |
+| Apache main config | `/etc/apache2/apache2.conf` |
+| Apache enabled modules / confs | `/etc/apache2/mods-enabled/`, `/etc/apache2/conf-enabled/` |
+| PHP ini scan dir (additional `*.ini` files) | `/usr/local/etc/php/conf.d/` |
+| PHP ini directory (`PHP_INI_DIR`) | `/usr/local/etc/php/` |
+| XDebug config (`xdebug` image only) | `/usr/local/etc/php/conf.d/xdebug.ini` |
+| XDebug log (`xdebug` image only) | `/tmp/xdebug.log` |
+
+Apache runs as `www-data`. Access and error logs are written to `stdout`/`stderr` (`docker logs <container>`).
+
+The default vhost:
+
+```apache
+<VirtualHost *:80>
+    DocumentRoot /var/www/app/public
+    DirectoryIndex index.php
+    ErrorLog /dev/stderr
+    TransferLog /dev/stdout
+</VirtualHost>
+```
+
+Enabled Apache module in addition to the base image defaults: `rewrite`.
+
+### Change the DocumentRoot or the vhost
+
+Mount your own vhost file over the default one:
+
+```yaml
+services:
+  php:
+    image: alaugks/apache-php:8.4.26
+    volumes:
+      - ./app:/var/www/app
+      - ./my-vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
+```
+
+```apache
+<VirtualHost *:80>
+    DocumentRoot /var/www/app/web
+    DirectoryIndex index.php
+
+    <Directory /var/www/app/web>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog /dev/stderr
+    TransferLog /dev/stdout
+</VirtualHost>
+```
+
+### Add Apache configuration
+
+Mount a file into `conf-enabled` to add global settings (applied in addition to the vhost):
+
+```yaml
+    volumes:
+      - ./apache-custom.conf:/etc/apache2/conf-enabled/custom.conf:ro
+```
+
+```apache
+ServerName localhost
+ServerTokens Prod
+```
+
+Additional modules can be enabled in a derived image:
+
+```dockerfile
+FROM alaugks/apache-php:8.4.26
+RUN a2enmod headers expires
+```
+
+### Change the PHP configuration
+
+The image ships **no `php.ini`**, so PHP runs with its built-in defaults. Add settings as extra ini files in `/usr/local/etc/php/conf.d/`. Files are loaded in alphabetical order, so use a name that sorts after existing files (e.g. `zz-custom.ini`) to override earlier settings.
+
+```yaml
+    volumes:
+      - ./php-custom.ini:/usr/local/etc/php/conf.d/zz-custom.ini:ro
+```
+
+```ini
+memory_limit = 512M
+upload_max_filesize = 64M
+post_max_size = 64M
+max_execution_time = 60
+date.timezone = Europe/Berlin
+```
+
+To start from one of the templates shipped with PHP (`php.ini-production` or `php.ini-development`), use a derived image:
+
+```dockerfile
+FROM alaugks/apache-php:8.4.26
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+```
+
+Settings can be checked with `docker exec <container> php -i | grep <setting>` or via phpinfo() (see [Frontend](#frontend)).
+
+### XDebug
+
+Only in the `-xdebug` image. The defaults in `xdebug.ini`:
+
+```ini
+xdebug.mode=debug,develop,coverage
+xdebug.client_host=host.docker.internal
+xdebug.start_with_request=yes
+xdebug.log=/tmp/xdebug.log
+```
+
+Override single values with an additional ini file (e.g. `zz-xdebug.ini`) or with the `XDEBUG_CONFIG` environment variable (e.g. `idekey`, `client_port`). Use `PHP_IDE_CONFIG: "serverName=<name>"` to match the server name configured in your IDE.
+
+After changing mounted configuration files, restart the container: `docker compose restart php`.
 
 ## Frontend
 
