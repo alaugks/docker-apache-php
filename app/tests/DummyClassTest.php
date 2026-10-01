@@ -3,11 +3,10 @@
 namespace App\Tests;
 
 use App\DummyClass;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers
- */
+#[CoversClass(DummyClass::class)]
 class DummyClassTest extends TestCase
 {
     public function testDummy(): void

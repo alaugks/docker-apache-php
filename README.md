@@ -2,7 +2,7 @@
 
 https://hub.docker.com/r/alaugks/apache-php/tags
 
-Based on `php:8.4.26-apache`.
+Based on `php:8.5.11-apache`.
 
 ## Table of Contents
 
@@ -53,8 +53,8 @@ docker compose -f docker-compose.yml up -d --build
 
 ```bash
 ./build-local.sh
-./build-local.sh --tag 8.4.26
-./build-local.sh --tag 8.4.26 --with-xdebug
+./build-local.sh --tag 8.5.11
+./build-local.sh --tag 8.5.11 --with-xdebug
 ```
 
 Run `./build-local.sh --help` for all options.
@@ -80,7 +80,7 @@ The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) b
 services:
   php:
     container_name: your_projekt
-    image: alaugks/apache-php:8.4.26
+    image: alaugks/apache-php:8.5.11-v1.0
     volumes:
       - ./app:/var/www/app
     ports:
@@ -95,7 +95,7 @@ services:
 services:
   php:
     container_name: your_projekt_local
-    image: alaugks/apache-php:8.4.26-xdebug
+    image: alaugks/apache-php:8.5.11-v1.0-xdebug
     volumes:
       - ./app:/var/www/app
     ports:
@@ -145,7 +145,7 @@ Mount your own vhost file over the default one:
 ```yaml
 services:
   php:
-    image: alaugks/apache-php:8.4.26
+    image: alaugks/apache-php:8.5.11
     volumes:
       - ./app:/var/www/app
       - ./my-vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
@@ -183,7 +183,7 @@ ServerTokens Prod
 Additional modules can be enabled in a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.4.26
+FROM alaugks/apache-php:8.5.11
 RUN a2enmod headers expires
 ```
 
@@ -207,7 +207,7 @@ date.timezone = Europe/Berlin
 To start from one of the templates shipped with PHP (`php.ini-production` or `php.ini-development`), use a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.4.26
+FROM alaugks/apache-php:8.5.11
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 ```
 
