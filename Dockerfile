@@ -1,4 +1,4 @@
-FROM php:8.4.26-apache@sha256:75325cceea4f9a8200f4e9e146e8155ec1b6466b2957b87accf0286b94547cbd AS base
+FROM php:8.5.11-apache@sha256:70d80539dcacae817d9a1320518b95c86bb9568835ef3a7a024d57a4898c90e4 AS base
 
 SHELL ["/bin/bash", "-c"]
 
@@ -26,7 +26,7 @@ RUN apt-get --allow-releaseinfo-change update --fix-missing \
     && rm -rf /var/lib/apt/lists/*
 
 ### COMPOSER
-RUN curl -fsSL -o /usr/local/bin/composer https://raw.githubusercontent.com/composer/getcomposer.org/09a1f131c28d6c496f6bddcbf6cebf34502ad9bc/web/download/2.9.5/composer.phar \
+RUN curl -fsSL -o /usr/local/bin/composer https://raw.githubusercontent.com/composer/getcomposer.org/ef2ebcfdd80b3ca949aafa5c0e8d281755ab2442/web/download/2.10.3/composer.phar \
     && chmod +x /usr/local/bin/composer
 
 ### PHP extensions (zip, pdo, pdo_mysql, mysqli, gd, intl, exif, imagick, redis)
@@ -83,7 +83,7 @@ FROM base AS xdebug
 RUN touch /tmp/xdebug.log \
     && chown www-data:www-data /tmp/xdebug.log \
     && chmod 755 /tmp/xdebug.log \
-    && pecl install xdebug-3.5.0 \
+    && pecl install xdebug-3.5.3 \
     && { \
         echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
         echo "xdebug.mode=debug,develop,coverage"; \
