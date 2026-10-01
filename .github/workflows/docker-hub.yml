@@ -2,7 +2,9 @@ name: Push Image
 run-name: Push Image [${{github.ref_name}}]
 on:
   workflow_dispatch:
-
+  push:
+    tags:
+      - '8.3.16-v1.0-*'
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -10,6 +12,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -20,43 +25,24 @@ jobs:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
-#      - name: Build-Test (with XDebug)
-#        uses: docker/build-push-action@v5.1.0
-#        with:
+      - name: Build and push (with XDebug)
+        uses: docker/build-push-action@v6
+        with:
 #          cache-from: type=gha
 #          cache-to: type=gha,mode=max
-#          context: .
-#          file: Dockerfile
-#          platforms: linux/amd64,linux/arm64
-#          build-args: |
-#            ENABLE_XDEBUG=yes
-#          load: true
-#          tags: alaugks/apache-php:${{github.ref_name}}-xdebug
-#
-#      - name: Test run image (with XDebug)
-#        run: |
-#          docker run \
-#            -p 8080:80 \
-#            --rm alaugks/apache-php:${{github.ref_name}}-xdebug
-
-      - name: Build and push (with XDebug)
-        uses: docker/build-push-action@v5.1.0
-        with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           context: .
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
           build-args: |
-            ENABLE_XDEBUG=yes
+            ENABLE_XDEBUG=1
           push: true
           tags: alaugks/apache-php:${{github.ref_name}}-xdebug
 
       - name: Build and push
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v6
         with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
           context: .
           file: Dockerfile
           platforms: linux/amd64,linux/arm64

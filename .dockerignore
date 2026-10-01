@@ -1,9 +1,11 @@
 .docker
-.github
-.idea
-app
 .env
+.github
 .gitignore
+.idea
+.run
+app
 build.sh
 docker-compose.yml
+docker-compose-latest.yml
 run.sh

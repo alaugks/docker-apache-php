@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       context: .
       args:
-        ENABLE_XDEBUG: 0
+        ENABLE_XDEBUG: 1
     volumes:
       - ./app:/var/www/app
     ports:
