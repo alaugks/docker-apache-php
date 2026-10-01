@@ -20,6 +20,7 @@ Based on `php:8.4.26-apache`.
   - [Add Apache configuration](#add-apache-configuration)
   - [Change the PHP configuration](#change-the-php-configuration)
   - [XDebug](#xdebug)
+  - [XDebug in IntelliJ IDEA / PhpStorm](#xdebug-in-intellij-idea--phpstorm)
 - [Frontend](#frontend)
 - [Docker Entrypoint](#docker-entrypoint)
 - [PHPUnit](#phpunit)
@@ -226,6 +227,35 @@ xdebug.log=/tmp/xdebug.log
 Override single values with an additional ini file (e.g. `zz-xdebug.ini`) or with the `XDEBUG_CONFIG` environment variable (e.g. `idekey`, `client_port`). Use `PHP_IDE_CONFIG: "serverName=<name>"` to match the server name configured in your IDE.
 
 After changing mounted configuration files, restart the container: `docker compose restart php`.
+
+### XDebug in IntelliJ IDEA / PhpStorm
+
+The values match [`docker-compose-xdebug.yml`](docker-compose-xdebug.yml) (`serverName=localhost`, `idekey=apache_php_xdebug`, port `8080`).
+
+**1. Server** (*Settings > PHP > Servers*)
+
+![Server configuration](docs/server.png)
+
+| Setting | Value |
+|---|---|
+| Name | `localhost` (must match `serverName` in `PHP_IDE_CONFIG`) |
+| Host / Port | `localhost` / `8080` |
+| Debugger | `Xdebug` |
+| Use path mappings | enabled, project `app` directory → `/var/www/app` |
+
+**2. Run/Debug configuration** (*Run > Edit Configurations > PHP Remote Debug*)
+
+![Run/Debug configuration](docs/run_debug_configuration.png)
+
+| Setting | Value |
+|---|---|
+| Filter debug connection by IDE key | enabled |
+| Server | `localhost` |
+| IDE key (session id) | `apache_php_xdebug` (must match `idekey` in `XDEBUG_CONFIG`) |
+
+**3. Start debugging**
+
+Start the run configuration (*Debug*), enable *Start Listening for PHP Debug Connections* and open http://localhost:8080 in the browser. `xdebug.start_with_request=yes` is already configured in the `-xdebug` image (see [XDebug](#xdebug)), so no browser extension or additional setup is needed.
 
 ## Frontend
 
