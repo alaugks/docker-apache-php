@@ -1,11 +1,11 @@
 services:
   php:
     container_name: apache_php
+    image: alaugks/apache-php:local
     build:
       dockerfile: Dockerfile
       context: .
-      args:
-        ENABLE_XDEBUG: 0
+      target: production
     volumes:
       - ./app:/var/www/app
     ports:

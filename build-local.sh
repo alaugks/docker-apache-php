@@ -49,29 +49,23 @@ echo "Image: ${IMAGE_NAME}:${TAG}"
 echo "XDebug enabled: ${ENABLE_XDEBUG}"
 echo ""
 
-# Build without XDebug
 if [ "${ENABLE_XDEBUG}" = "0" ]; then
-    docker build \
-        --build-arg ENABLE_XDEBUG=0 \
-        -t "${IMAGE_NAME}:${TAG}" \
-        -f Dockerfile \
-        .
-
-    echo ""
-    echo "✓ Build completed successfully!"
-    echo "Image: ${IMAGE_NAME}:${TAG}"
+    TARGET="production"
+    FULL_TAG="${TAG}"
 else
-    # Build with XDebug
-    docker build \
-        --build-arg ENABLE_XDEBUG=1 \
-        -t "${IMAGE_NAME}:${TAG}-xdebug" \
-        -f Dockerfile \
-        .
-
-    echo ""
-    echo "✓ Build completed successfully!"
-    echo "Image: ${IMAGE_NAME}:${TAG}-xdebug"
+    TARGET="xdebug"
+    FULL_TAG="${TAG}-xdebug"
 fi
+
+docker build \
+    --target "${TARGET}" \
+    -t "${IMAGE_NAME}:${FULL_TAG}" \
+    -f Dockerfile \
+    .
+
+echo ""
+echo "✓ Build completed successfully!"
+echo "Image: ${IMAGE_NAME}:${FULL_TAG}"
 
 echo ""
 echo "Usage examples:"
