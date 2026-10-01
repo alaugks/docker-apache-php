@@ -1,116 +1,70 @@
 ARG ENABLE_XDEBUG="0"
 
-FROM php:8.4.18-apache@sha256:f136434142729ffb11936a2dadd898812bbbc94eae23e9e1b2476b81e313eea0
+FROM php:8.4.26-apache@sha256:75325cceea4f9a8200f4e9e146e8155ec1b6466b2957b87accf0286b94547cbd
 
 ARG ENABLE_XDEBUG
 
-# > Only for debugging
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-# < Only for debugging
+SHELL ["/bin/bash", "-c"]
 
 ########################################################################################################################
-# > Global
+# > Global + PHP
 ########################################################################################################################
 
-RUN apt-get --allow-releaseinfo-change update --fix-missing
-
-RUN apt-get install -y --no-install-recommends \
-    git \
-    acl
-
-########################################################################################################################
-# > Global
-########################################################################################################################
-
-########################################################################################################################
-# > PHP
-########################################################################################################################
-
-### COMPOSER
-RUN curl -o composer.phar https://raw.githubusercontent.com/composer/getcomposer.org/09a1f131c28d6c496f6bddcbf6cebf34502ad9bc/web/download/2.9.5/composer.phar \
-    && mv composer.phar /usr/local/bin/composer \
-    && chmod +x /usr/local/bin/composer
-
-
-### ZIP
-RUN apt-get install -y --no-install-recommends  \
+### System packages (git, acl, composer, zip, imagick, gd, intl)
+RUN apt-get --allow-releaseinfo-change update --fix-missing \
+    && apt-get install -y --no-install-recommends \
+        git \
+        acl \
         libzip-dev \
         zip \
-        unzip
-
-RUN docker-php-ext-install \
-        zip
-
-
-### PDO
-RUN docker-php-ext-install \
-        pdo\
-        pdo_mysql
-
-### mysqli
-RUN docker-php-ext-install mysqli
-
-### IMAGEMAGIK
-RUN apt-get install -y --no-install-recommends \
+        unzip \
         imagemagick \
         libmagickwand-dev \
         libwebp-dev \
-        webp
-
-RUN pecl install \
-        imagick
-
-RUN docker-php-ext-enable \
-        imagick
-
-
-### GD
-RUN apt-get install -y --no-install-recommends \
+        webp \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
         zlib1g-dev \
-        libicu-dev
+        libicu-dev \
+    && rm -rf /var/lib/apt/lists/*
 
+### COMPOSER
+RUN curl -fsSL -o /usr/local/bin/composer https://raw.githubusercontent.com/composer/getcomposer.org/09a1f131c28d6c496f6bddcbf6cebf34502ad9bc/web/download/2.9.5/composer.phar \
+    && chmod +x /usr/local/bin/composer
 
-RUN docker-php-ext-configure \
-    gd \
-#         --with-freetype \
-          --with-jpeg \
-          --with-webp \
-    && docker-php-ext-install \
-          gd
-
-
-### INTL
-RUN docker-php-ext-install \
-      intl
-
-### EXIF
-RUN docker-php-ext-install \
-      exif
-
-# Redis
-RUN pecl install redis \
-    && rm -rf /tmp/pear \
-    && docker-php-ext-enable redis
+### PHP extensions (zip, pdo, pdo_mysql, mysqli, gd, intl, exif, imagick, redis)
+RUN docker-php-ext-configure gd --with-jpeg --with-webp \
+    && docker-php-ext-install -j"$(nproc)" \
+        zip \
+        pdo \
+        pdo_mysql \
+        mysqli \
+        gd \
+        intl \
+        exif \
+    && pecl install imagick redis \
+    && docker-php-ext-enable imagick redis \
+    && rm -rf /tmp/pear
 
 #### XDEBUG 3
-RUN touch /tmp/xdebug.log
-RUN chown -Rf www-data:www-data /tmp/xdebug.log
-RUN chmod 755 -Rf /tmp/xdebug.log
+RUN touch /tmp/xdebug.log \
+    && chown www-data:www-data /tmp/xdebug.log \
+    && chmod 755 /tmp/xdebug.log \
+    && if [ "${ENABLE_XDEBUG}" = "1" ]; then \
+        pecl install xdebug-3.5.0 \
+        && { \
+            echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)"; \
+            echo "xdebug.mode=debug,develop,coverage"; \
+            echo "xdebug.client_host=host.docker.internal"; \
+            echo "xdebug.start_with_request=yes"; \
+            echo "xdebug.log=/tmp/xdebug.log"; \
+        } > /usr/local/etc/php/conf.d/xdebug.ini \
+        && rm -rf /tmp/pear; \
+    fi
 
-RUN if [ "${ENABLE_XDEBUG}" = "1" ]; then \
-    pecl install xdebug-3.5.0 \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.mode=debug,develop,coverage" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.log=/tmp/xdebug.log" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    ; \
-fi
 ########################################################################################################################
-# < PHP
+# < Global + PHP
 ########################################################################################################################
 
 
@@ -121,14 +75,11 @@ fi
 COPY 000-default.conf /etc/apache2/sites-available
 
 ### MODULES
-RUN a2enmod \
-      rewrite
+RUN a2enmod rewrite
 
 ########################################################################################################################
 # < Apache
 ########################################################################################################################
-
-RUN apt-get clean
 
 EXPOSE 80
 
@@ -138,8 +89,7 @@ WORKDIR /var/www/app
 ENV APACHE_RUN_USER=www-data
 ENV APACHE_RUN_GROUP=www-data
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+COPY --chmod=755 docker-entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
