@@ -1,8 +1,8 @@
 # Apache PHP (with XDebug) Docker Image
 
-https://hub.docker.com/r/alaugks/apache-php/tags
+[![Docker Hub](https://img.shields.io/badge/dockerhub-images-important.svg?logo=Docker)](https://hub.docker.com/r/alaugks/apache-php/tags?ordering=name)
 
-Based on `php:8.5.11-apache`.
+Based on `php:8.5.x-apache`.
 
 ## Table of Contents
 
