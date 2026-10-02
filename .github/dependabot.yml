@@ -29,3 +29,19 @@ updates:
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  # Branch 8.3: only PHP 8.3.x
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "8.3"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    target-branch: "8.3"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "php"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
