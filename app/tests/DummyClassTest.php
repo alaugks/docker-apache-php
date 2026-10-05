@@ -6,7 +6,7 @@ use App\DummyClass;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers
+ * @covers \App\DummyClass
  */
 class DummyClassTest extends TestCase
 {
