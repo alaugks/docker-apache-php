@@ -215,7 +215,7 @@ Settings can be checked with `docker exec <container> php -i | grep <setting>` o
 
 ### XDebug
 
-Only in the `-xdebug` image. The defaults in `xdebug.ini`:
+Only in the `-xdebug` image. Xdebug works for web requests to the PHP application as well as for PHP CLI scripts (e.g. PHPUnit) run inside the Docker container (e.g. `docker exec`/`docker compose run`). The defaults in `xdebug.ini`:
 
 ```ini
 xdebug.mode=debug,develop,coverage
