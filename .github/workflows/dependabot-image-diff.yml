@@ -1,5 +1,5 @@
 name: Dependabot Image Diff
-run-name: Dependabot Image Diff [PR #${{github.event.pull_request.number}}]
+run-name: Dependabot Image Diff [PR #${{github.event.pull_request.number || inputs.pr}}]
 
 # pull_request_target: Dependabot-PRs get a read-only GITHUB_TOKEN on "pull_request",
 # so commenting would fail. No PR code is checked out or executed here; only the
@@ -8,6 +8,12 @@ on:
   pull_request_target:
     paths:
       - Dockerfile
+  # Manual run for an existing PR (Actions tab -> Run workflow)
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number
+        required: true
 
 permissions:
   contents: read
@@ -15,7 +21,7 @@ permissions:
 
 jobs:
   diff:
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.user.login == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
 
@@ -24,9 +30,11 @@ jobs:
         env:
           GH_TOKEN: ${{github.token}}
           REPO: ${{github.repository}}
-          BASE_SHA: ${{github.event.pull_request.base.sha}}
-          HEAD_SHA: ${{github.event.pull_request.head.sha}}
+          PR: ${{github.event.pull_request.number || inputs.pr}}
         run: |
+          BASE_SHA=$(gh pr view "$PR" --repo "$REPO" --json baseRefOid --jq .baseRefOid)
+          HEAD_SHA=$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq .headRefOid)
+          echo "pr=$PR" >> "$GITHUB_OUTPUT"
           from_line() {
             gh api -H "Accept: application/vnd.github.raw" \
               "repos/$REPO/contents/Dockerfile?ref=$1" \
@@ -103,7 +111,7 @@ jobs:
       - name: Post or update comment
         env:
           GH_TOKEN: ${{github.token}}
-          PR: ${{github.event.pull_request.number}}
+          PR: ${{steps.refs.outputs.pr}}
         run: |
           # --edit-last updates our previous comment; fall back to creating one
           gh pr comment "$PR" --repo "${{github.repository}}" --edit-last --body-file comment.md \
