@@ -48,6 +48,17 @@ jobs:
           collect old.txt "${{steps.refs.outputs.old}}"
           collect new.txt "${{steps.refs.outputs.new}}"
 
+      - name: Scan for CVEs
+        run: |
+          scan() {
+            docker run --rm aquasec/trivy:0.58.1 image \
+              --quiet --format json --ignore-unfixed --scanners vuln "$2" \
+              | jq -r '[.Results[]?.Vulnerabilities[]? | "\(.VulnerabilityID)|\(.PkgName)|\(.Severity)"] | unique | .[]' \
+              | sort > "$1"
+          }
+          scan old-cve.txt "${{steps.refs.outputs.old}}"
+          scan new-cve.txt "${{steps.refs.outputs.new}}"
+
       - name: Build comment
         run: |
           {
@@ -66,6 +77,26 @@ jobs:
               echo "|---|---|---|"
               join -a1 -a2 -e '-' -o 0,1.2,2.2 old.txt new.txt \
                 | awk '$2 != $3 {printf "| %s | %s | %s |\n", $1, $2, $3}'
+            fi
+            echo
+            echo "### Fixed vulnerabilities (CVEs)"
+            echo
+            fixed=$(comm -23 old-cve.txt new-cve.txt)
+            added=$(comm -13 old-cve.txt new-cve.txt)
+            if [ -n "$fixed" ]; then
+              echo "| CVE | Package | Severity |"
+              echo "|---|---|---|"
+              echo "$fixed" | awk -F'|' '{printf "| [%s](https://avd.aquasec.com/nvd/%s) | %s | %s |\n", $1, tolower($1), $2, $3}'
+            else
+              echo "No fixed CVEs (only vulnerabilities with an available fix are considered)."
+            fi
+            if [ -n "$added" ]; then
+              echo
+              echo "**New vulnerabilities in the new image:**"
+              echo
+              echo "| CVE | Package | Severity |"
+              echo "|---|---|---|"
+              echo "$added" | awk -F'|' '{printf "| [%s](https://avd.aquasec.com/nvd/%s) | %s | %s |\n", $1, tolower($1), $2, $3}'
             fi
           } > comment.md
 
