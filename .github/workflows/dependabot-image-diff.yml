@@ -1,0 +1,110 @@
+name: Dependabot Image Diff
+run-name: Dependabot Image Diff [PR #${{github.event.pull_request.number}}]
+
+# pull_request_target: Dependabot-PRs get a read-only GITHUB_TOKEN on "pull_request",
+# so commenting would fail. No PR code is checked out or executed here; only the
+# Dockerfile text is read via the API and the referenced official php image is pulled.
+on:
+  pull_request_target:
+    paths:
+      - Dockerfile
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  diff:
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Resolve old and new base image
+        id: refs
+        env:
+          GH_TOKEN: ${{github.token}}
+          REPO: ${{github.repository}}
+          BASE_SHA: ${{github.event.pull_request.base.sha}}
+          HEAD_SHA: ${{github.event.pull_request.head.sha}}
+        run: |
+          from_line() {
+            gh api -H "Accept: application/vnd.github.raw" \
+              "repos/$REPO/contents/Dockerfile?ref=$1" \
+              | grep -m1 -E '^FROM php:' | awk '{print $2}'
+          }
+          echo "old=$(from_line "$BASE_SHA")" >> "$GITHUB_OUTPUT"
+          echo "new=$(from_line "$HEAD_SHA")" >> "$GITHUB_OUTPUT"
+
+      - name: Collect package lists
+        run: |
+          collect() {
+            docker run --rm --entrypoint bash "$2" -c '
+              echo "php $(php -r "echo PHP_VERSION;")"
+              echo "apache $(apache2 -v | head -1 | sed "s/.*Apache\///; s/ .*//")"
+              . /etc/os-release && echo "debian $VERSION_ID"
+              dpkg-query -W -f="\${Package} \${Version}\n"
+            ' | sort > "$1"
+          }
+          collect old.txt "${{steps.refs.outputs.old}}"
+          collect new.txt "${{steps.refs.outputs.new}}"
+
+      - name: Scan for CVEs
+        run: |
+          scan() {
+            docker run --rm aquasec/trivy:0.58.1 image \
+              --quiet --format json --ignore-unfixed --scanners vuln "$2" \
+              | jq -r '[.Results[]?.Vulnerabilities[]? | "\(.VulnerabilityID)|\(.PkgName)|\(.Severity)"] | unique | .[]' \
+              | sort > "$1"
+          }
+          scan old-cve.txt "${{steps.refs.outputs.old}}"
+          scan new-cve.txt "${{steps.refs.outputs.new}}"
+
+      - name: Build comment
+        run: |
+          {
+            echo "<!-- dependabot-image-diff -->"
+            echo "### Base image changes"
+            echo
+            echo "| | Image |"
+            echo "|---|---|"
+            echo "| old | \`${{steps.refs.outputs.old}}\` |"
+            echo "| new | \`${{steps.refs.outputs.new}}\` |"
+            echo
+            if diff -q old.txt new.txt > /dev/null; then
+              echo "No package or version differences. The image was rebuilt without visible package changes."
+            else
+              echo "| Package | Old | New |"
+              echo "|---|---|---|"
+              join -a1 -a2 -e '-' -o 0,1.2,2.2 old.txt new.txt \
+                | awk '$2 != $3 {printf "| %s | %s | %s |\n", $1, $2, $3}'
+            fi
+            echo
+            echo "### Fixed vulnerabilities (CVEs)"
+            echo
+            fixed=$(comm -23 old-cve.txt new-cve.txt)
+            added=$(comm -13 old-cve.txt new-cve.txt)
+            if [ -n "$fixed" ]; then
+              echo "| CVE | Package | Severity |"
+              echo "|---|---|---|"
+              echo "$fixed" | awk -F'|' '{printf "| [%s](https://avd.aquasec.com/nvd/%s) | %s | %s |\n", $1, tolower($1), $2, $3}'
+            else
+              echo "No fixed CVEs (only vulnerabilities with an available fix are considered)."
+            fi
+            if [ -n "$added" ]; then
+              echo
+              echo "**New vulnerabilities in the new image:**"
+              echo
+              echo "| CVE | Package | Severity |"
+              echo "|---|---|---|"
+              echo "$added" | awk -F'|' '{printf "| [%s](https://avd.aquasec.com/nvd/%s) | %s | %s |\n", $1, tolower($1), $2, $3}'
+            fi
+          } > comment.md
+
+      - name: Post or update comment
+        env:
+          GH_TOKEN: ${{github.token}}
+          PR: ${{github.event.pull_request.number}}
+        run: |
+          # --edit-last updates our previous comment; fall back to creating one
+          gh pr comment "$PR" --repo "${{github.repository}}" --edit-last --body-file comment.md \
+            || gh pr comment "$PR" --repo "${{github.repository}}" --body-file comment.md
