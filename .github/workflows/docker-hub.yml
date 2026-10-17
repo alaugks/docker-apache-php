@@ -30,3 +30,9 @@ jobs:
         with:
           files: docker-bake.hcl
           push: true
+
+  versions:
+    needs: docker
+    permissions:
+      contents: write
+    uses: ./.github/workflows/versions.yml

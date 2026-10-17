@@ -4,6 +4,8 @@
 
 Based on `php:8.5.x-apache`.
 
+All available tags are listed in [VERSIONS.md](VERSIONS.md), the tag scheme is described in [Versioning](#versioning).
+
 ## Table of Contents
 
 - [PHP Modules](#php-modules)
@@ -11,6 +13,7 @@ Based on `php:8.5.x-apache`.
   - [Build without XDebug](#build-without-xdebug)
   - [Local Build Script](#local-build-script)
   - [Release (Docker Hub)](#release-docker-hub)
+- [Versioning](#versioning)
 - [Docker Compose Example](#docker-compose-example)
   - [Production (without XDebug)](#production-without-xdebug)
   - [Development (with XDebug)](#development-with-xdebug)
@@ -71,6 +74,24 @@ The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) b
 `<ref>` is the branch or tag the workflow is run on. Both targets are built for `linux/amd64` and `linux/arm64`.
 
 `docker-bake.hcl` uses the GitHub Actions cache and is therefore meant for CI. Use `./build-local.sh` for local builds.
+
+## Versioning
+
+Tags follow the scheme `<PHPVersion>-v<Feature>.<Fix>`, optionally followed by the `-xdebug` suffix:
+
+```
+8.5.11-v1.2
+8.5.11-v1.2-xdebug
+```
+
+| Part | Description | Example |
+|---|---|---|
+| `<PHPVersion>` | Full PHP version (`major.minor.patch`) of the base image `php:<PHPVersion>-apache` | `8.5.11` |
+| `v<Feature>` | Incremented for new features or changes to the image (e.g. new PHP modules, changed configuration) | `v1` |
+| `<Fix>` | Incremented for fixes, patches and security patches (e.g. updated base image or packages) | `2` |
+| `-xdebug` | Image variant with XDebug 3 (see [Build](#build)) | `-xdebug` |
+
+All published tags are listed in [VERSIONS.md](VERSIONS.md).
 
 ## Docker Compose Example
 

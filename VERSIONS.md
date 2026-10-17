@@ -1,0 +1,59 @@
+# Versions
+
+Tags of [alaugks/apache-php](https://hub.docker.com/r/alaugks/apache-php/tags) on Docker Hub.
+
+| Tag | Digest | Last updated | Size (MB) | Architectures |
+|-----|--------|--------------|-----------|---------------|
+| [`8.5.11-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0-xdebug/images/sha256-f213233537e329b060d57d1581d714e20873d3f1bd1c11a4f50e909f6f3fba5f) | `b9398cfb61b6` | 2026-10-01 | 354 | amd64, arm64 |
+| [`8.5.11-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0/images/sha256-908aa0bc0af363e3899026e6d85785023b7dcf538df3da625ecfb34461241fcb) | `085b81105cbc` | 2026-10-01 | 353 | amd64, arm64 |
+| [`8.4.26-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.0-xdebug/images/sha256-36296195ff2428fda4bbbce2a7353248631db4bfd6ee306cf729ea979e6e5826) | `8db61882dc7f` | 2026-10-01 | 352 | amd64, arm64 |
+| [`8.4.26-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.0/images/sha256-98907383aebb51b2eca703b77106e5d6e47a0bd1f3f96b7eb86611743b5e3efe) | `cd5384e91c12` | 2026-10-01 | 351 | amd64, arm64 |
+| [`8.3.35-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.0-xdebug/images/sha256-a042674fa8269e543aabdcadda38e2bbca0a7ec073f2fda7a5215e240f3234b3) | `3128f0fb9d2c` | 2026-10-02 | 349 | amd64, arm64 |
+| [`8.3.35-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.0/images/sha256-a31795eb6d205fccbde4cbab246b7e089e7dd28c1774d3861b117f7d5e73f3de) | `6f40c5cd6897` | 2026-10-02 | 348 | amd64, arm64 |
+| [`8.2.34-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.34-v1.0-xdebug/images/sha256-c9c78ae9e036c7bce0618658bb43263440ac9226aecacdc905a2bccc4891a092) | `c55a72bf2894` | 2026-10-02 | 349 | amd64, arm64 |
+| [`8.2.34-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.34-v1.0/images/sha256-8a1fe58b0c80747c7f99cb824b5ecb69157f0248639b7966ca39d3854300f38f) | `b097047eb1e4` | 2026-10-02 | 348 | amd64, arm64 |
+| [`8.2.29-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.29-v1.1-xdebug/images/sha256-8ba0c8e973456fcabab840772e3295ab2448d3ee0fea2f153471a75316a6f80f) | `099700eb8aae` | 2026-10-01 | 331 | amd64, arm64 |
+| [`8.2.29-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.2.29-v1.1/images/sha256-5fc9a2f37e75fcf78e23443c589f013a7594f8ff9200a22272bb65a607cd3865) | `b6cceed76eb3` | 2026-10-01 | 330 | amd64, arm64 |
+| [`8.2.29-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.29-v1.0-xdebug/images/sha256-00b363a36b9bd97dbd477823e8473c38832996ba7b42f9e33cf05d968daada7d) | `20700802f610` | 2025-07-08 | 329 | amd64, arm64 |
+| [`8.2.29-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.29-v1.0/images/sha256-6146a7cf057ac45f1ffb333658255613e50fec97c10949edc9e8108f12b9a819) | `d550f5dd4be2` | 2025-07-08 | 328 | amd64, arm64 |
+| [`8.2.27-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.27-v1.0-xdebug/images/sha256-48f0ccf00330262b7e25e86d3d7e1d910e5fec645c12612c024cf1286ec37518) | `3ac550208c45` | 2025-02-05 | 337 | amd64, arm64 |
+| [`8.2.27-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.27-v1.0/images/sha256-476b6d2264e4489a392fff79ec1a2d20b38371f37966b246fcfbc186fdca83b9) | `fd319a4002ab` | 2025-02-05 | 335 | amd64, arm64 |
+| [`8.2.26-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.26-v1.0-xdebug/images/sha256-f2aead4e6d407af358144b01c36584fe983fc2d426436bab3f1077e2da55954d) | `0e3e8771f7dc` | 2025-02-05 | 339 | amd64, arm64 |
+| [`8.2.26-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.26-v1.0/images/sha256-6e584949c5682a58fe9175fc58bd708ec944ebe3b0f53e1ac80af56f05654706) | `f319638623a2` | 2025-02-05 | 338 | amd64, arm64 |
+| [`8.2.24-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.24-v1.1-xdebug/images/sha256-cb4957dab391ceee2099ac761ffa7f116d70d20c97281e206c6138b33af36425) | `4a1fe948e48e` | 2024-12-08 | 333 | amd64, arm64 |
+| [`8.2.24-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.2.24-v1.1/images/sha256-859ce8e9b7f0751f9cc3ab012f6f848ee1442bd4d5d169a61f9b2914f0a34566) | `5ea223a5dc01` | 2024-12-08 | 332 | amd64, arm64 |
+| [`8.2.24-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.24-v1.0-xdebug/images/sha256-4aa700955aea6dd74ca20149453be91528148b441a6e8a3a8bfc7769b3076aa7) | `ae36e1801a0c` | 2024-11-04 | 330 | amd64, arm64 |
+| [`8.2.24-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.24-v1.0/images/sha256-4fcdc4103695b74ded6d9023e45729140da4686414f90ead0480bad8a48f3120) | `e67790e96499` | 2024-11-04 | 329 | amd64, arm64 |
+| [`8.2.21-v2.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v2.0-xdebug/images/sha256-8d190dddffda1630e7cb7b9eee8698fa4cfff54d3688869e18f518d4473d370e) | `3d509784f4e1` | 2024-07-22 | 330 | amd64, arm64 |
+| [`8.2.21-v2.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v2.0/images/sha256-6da72f5da07b7b7435ca88292d4728dcb9f5491236d8379a71b75b60528eaba1) | `5983e6ef20b7` | 2024-07-22 | 329 | amd64, arm64 |
+| [`8.2.21-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v1.1-xdebug/images/sha256-e653ee09a6b4178a2b2407a48e12a969b32a33d3e80620ef93fdea9ddb996866) | `fd326a0a56fa` | 2024-07-18 | 329 | amd64, arm64 |
+| [`8.2.21-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v1.1/images/sha256-0855d7c66778149fc4b2b063ea736c88c7a4f8821b77fcfa15261aee3b852507) | `b4b06cc9deb0` | 2024-07-18 | 327 | amd64, arm64 |
+| [`8.2.21-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v1.0-xdebug/images/sha256-8bbc564d7289724210b71b97b489c0505730b5e06f481c5d4767279968378570) | `985d1c3e871e` | 2024-07-18 | 327 | amd64, arm64 |
+| [`8.2.21-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.21-v1.0/images/sha256-095c61943aac94916c7b93061eedab00029d098c912d1ea7ef668173552ae741) | `1b7ded24c61e` | 2024-07-18 | 327 | amd64, arm64 |
+| [`8.2.14-v1.4-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.4-xdebug/images/sha256-621dc0d2a2e9d52c7f2b71e2d462b3585e92ba5f8c6b28cf1d2ec41a2fa2460c) | `3aa8754bcb46` | 2024-02-28 | 328 | amd64, arm64 |
+| [`8.2.14-v1.4`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.4/images/sha256-7a99fd2c528b903e8c35fa6bbb4447a6cba1c8999a11f3f921ee4f82f124e88f) | `37ecd946e177` | 2024-02-28 | 327 | amd64, arm64 |
+| [`8.2.14-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.1-xdebug/images/sha256-156fc1919af8d58160c95acc8437be8dcef66c4716f3fad3bf5e974589bc7cfc) | `d8ef01d41372` | 2024-02-20 | 328 | amd64, arm64 |
+| [`8.2.14-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.1/images/sha256-bb7d0f2a4ffd11ba05ed54280c9cc3e5b7e4e1d94b8ca56f984423af4f59127e) | `20edf4d8f89c` | 2024-02-20 | 327 | amd64, arm64 |
+| [`8.2.14-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.0-xdebug/images/sha256-69953fe8f3760e24ac8c99035659f93dc49bda86ba94589d4d54231b881c5cf2) | `ee849be123e2` | 2024-02-10 | 328 | amd64, arm64 |
+| [`8.2.14-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.14-v1.0/images/sha256-33fdafda75b956c0535bbe5b5a5fb5a58c9ebf297a5fc5578beaa65370e950f5) | `823e8bb831f1` | 2024-02-10 | 327 | amd64, arm64 |
+| [`8.2.12-v1.6-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.6-xdebug/images/sha256-4c15b6d695e125d234c1e7b80a2f5db136537c37626fdc81341c422708b35084) | `17c670a194bd` | 2024-02-28 | 329 | amd64, arm64 |
+| [`8.2.12-v1.4-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.4-xdebug/images/sha256-6d6cbe190d5b6e604204607196379ac610a38d3bf95954b9924d7f7a2eb20170) | `87e5e5a09ece` | 2024-02-21 | 329 | amd64, arm64 |
+| [`8.2.12-v1.4`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.4/images/sha256-965a627a4eb768885688f1b03bf4c22b8fd67e7258ce839ac8e9c26b6ea995c7) | `aaf818d22be0` | 2024-02-21 | 328 | amd64, arm64 |
+| [`8.2.12-v1.2-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.2-xdebug/images/sha256-fb7e8c79e7c5717006aa0bae7e043c2aa86e9b4c445dbe95dfc3d7034a58968a) | `abc83134644e` | 2024-02-20 | 329 | amd64, arm64 |
+| [`8.2.12-v1.2`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.2/images/sha256-4181576b1cf8733ac14a5b25ef55def8f6533d5d875740c7d06d085a96ff34bb) | `e9845713b7c8` | 2024-02-20 | 328 | amd64, arm64 |
+| [`8.2.12-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.1-xdebug/images/sha256-e818f2cb6b0ecb5ed1f450131720d5cfa56aec896bc776c129b9d9d2631db182) | `cc2b3f82b27a` | 2023-12-07 | 328 | amd64, arm64 |
+| [`8.2.12-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.1/images/sha256-5fa1a8b1d2c4951e334d1aecc13b042120240047205711f816a8dc411a31a182) | `5833b7ed5692` | 2023-12-07 | 327 | amd64, arm64 |
+| [`8.2.12-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.0-xdebug/images/sha256-1010deef2220c0d36030467a09581aa4ffaeb10f71cfad5f46545c5452b254eb) | `13bdcb8b9f91` | 2023-11-03 | 328 | amd64, arm64 |
+| [`8.2.12-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.2.12-v1.0/images/sha256-6a0eb90ed227b888f925ef939cde36536a80cde238bd264555f8dad1e2136d47) | `74aa6f7ad4da` | 2023-11-04 | 327 | amd64, arm64 |
+| [`8.1.34-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.1.34-v1.0-xdebug/images/sha256-a2b4d19f81ba8923d83f01bb3e66012f83fee3b6ca9c976d3c634458b15b5e00) | `b809e3f9f69e` | 2026-10-02 | 352 | amd64, arm64 |
+| [`8.1.34-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.1.34-v1.0/images/sha256-7b6d3dfcd15d54a8ff6ba9ccac591d699ea31a73340c1218969fb90826067de2) | `c32056ee6024` | 2026-10-02 | 351 | amd64, arm64 |
+| [`8.1.31-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.1.31-v1.0-xdebug/images/sha256-d6a3e2204209be12eca3b56501f8de774626fef0a2803e293c764513044ee9ab) | `449c14126fc5` | 2024-11-23 | 329 | amd64, arm64 |
+| [`8.1.31-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.1.31-v1.0/images/sha256-a7525403d18b22cf71294b362bc9248f0ff2d8d8e79e639080644ae4ba3b8569) | `ed936b6495bb` | 2024-11-23 | 328 | amd64, arm64 |
+| [`8.0.30-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.0.30-v1.1-xdebug/images/sha256-4334abde5c9c432fe379962305010ccc398be44c0eb174c492ff0ed81e0f2ee5) | `b1747b2cfc2b` | 2026-10-05 | 302 | amd64, arm64 |
+| [`8.0.30-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.0.30-v1.1/images/sha256-4a81f24aef36c8283e232ece2de1fd65fddbfb72c76c07382e694ca2bbc84f66) | `77b6c295dacd` | 2026-10-05 | 301 | amd64, arm64 |
+| [`8.0.30-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.0.30-v1.0-xdebug/images/sha256-2df65cfb767f6f4895e4c9871ad302757f2c8b71241046a871123230865117fb) | `5cb680d86b08` | 2024-11-23 | 302 | amd64, arm64 |
+| [`8.0.30-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.0.30-v1.0/images/sha256-b2c9238c60a69d5ff4ab8050d1b885cb73d311dd5ffb095b48fbb0ec7095cc6b) | `e028c0f274e7` | 2024-11-23 | 301 | amd64, arm64 |
+| [`7.4.33-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/7.4.33-v1.1-xdebug/images/sha256-9bb380a0b12b79403ba26a2f0647507e5d231822c58ea2c3f5f64289f778e929) | `ba9c5911e82b` | 2026-10-05 | 300 | amd64, arm64 |
+| [`7.4.33-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/7.4.33-v1.1/images/sha256-35ad067ac75f827c8b31feb3593eeadc78d72664e856d17517ea8de3a861fb45) | `fb67546289ad` | 2026-10-05 | 300 | amd64, arm64 |
+| [`7.4.33-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/7.4.33-v1.0-xdebug/images/sha256-004b6986f3b42c0df00887cb166cffb0f9d05a39a68d0954d4fe0d6af2d4bc27) | `14f11c8d115b` | 2024-11-04 | 301 | amd64, arm64 |
+| [`7.4.33-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/7.4.33-v1.0/images/sha256-37476b9a942ec7b0b54040ce4946cd1f5fd45d8669e63325ab8b10084bcc9ec9) | `53b391766c10` | 2024-11-04 | 300 | amd64, arm64 |
