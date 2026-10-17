@@ -6,9 +6,11 @@ Tags of [alaugks/apache-php](https://hub.docker.com/r/alaugks/apache-php/tags) o
 |-----|--------|--------------|-----------|---------------|
 | [`8.5.11-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0-xdebug/images/sha256-f213233537e329b060d57d1581d714e20873d3f1bd1c11a4f50e909f6f3fba5f) | `b9398cfb61b6` | 2026-10-01 | 354 | amd64, arm64 |
 | [`8.5.11-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0/images/sha256-908aa0bc0af363e3899026e6d85785023b7dcf538df3da625ecfb34461241fcb) | `085b81105cbc` | 2026-10-01 | 353 | amd64, arm64 |
+| [`8.4.26-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.1-xdebug/images/sha256-4286f6d39e15a879987ba2cf0359b23abbbacfc77d10c622f594266153a276c3) | `766106a30699` | 2026-10-17 | 353 | amd64, arm64 |
 | [`8.4.26-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.1/images/sha256-fa68c2682e784c11c0bcf250aa894bea1a33048043f50b9e8161806ff3f71c78) | `f9da8af17412` | 2026-10-17 | 352 | amd64, arm64 |
 | [`8.4.26-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.0-xdebug/images/sha256-36296195ff2428fda4bbbce2a7353248631db4bfd6ee306cf729ea979e6e5826) | `8db61882dc7f` | 2026-10-01 | 352 | amd64, arm64 |
 | [`8.4.26-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.0/images/sha256-98907383aebb51b2eca703b77106e5d6e47a0bd1f3f96b7eb86611743b5e3efe) | `cd5384e91c12` | 2026-10-01 | 351 | amd64, arm64 |
+| [`8.3.35-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.1-xdebug/images/sha256-549ba9b875ff9e9238996050454d4725595fa71821015724ddb1b9420309d56b) | `7d4a2525d426` | 2026-10-17 | 350 | amd64, arm64 |
 | [`8.3.35-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.1/images/sha256-c6161bd4489e32b87b28a42bb7f9debf808e24a2b3a56321e0b399359f6980ec) | `a7946202fdb4` | 2026-10-17 | 349 | amd64, arm64 |
 | [`8.3.35-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.0-xdebug/images/sha256-a042674fa8269e543aabdcadda38e2bbca0a7ec073f2fda7a5215e240f3234b3) | `3128f0fb9d2c` | 2026-10-02 | 349 | amd64, arm64 |
 | [`8.3.35-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.3.35-v1.0/images/sha256-a31795eb6d205fccbde4cbab246b7e089e7dd28c1774d3861b117f7d5e73f3de) | `6f40c5cd6897` | 2026-10-02 | 348 | amd64, arm64 |
