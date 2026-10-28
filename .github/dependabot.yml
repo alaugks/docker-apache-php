@@ -10,6 +10,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 0
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
@@ -26,6 +28,8 @@ updates:
     target-branch: "8.4"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 0
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
@@ -42,6 +46,8 @@ updates:
     target-branch: "8.3"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 0
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
@@ -58,6 +64,8 @@ updates:
     target-branch: "8.2"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 0
     ignore:
       - dependency-name: "php"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
