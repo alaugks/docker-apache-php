@@ -1,4 +1,4 @@
-FROM php:8.4.26-apache@sha256:901b0dbcd2419cc9cd307ea05e57403449ce722ccd5b32335da6e8d39f2b1ee0 AS base
+FROM php:8.4.26-apache@sha256:60111400ff77bdc44fa79b4f072afe49a42abba71e0846ad496be4761dc9c11a AS base
 
 SHELL ["/bin/bash", "-c"]
 
