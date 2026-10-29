@@ -1,0 +1,29 @@
+name: Update Versions
+run-name: Update Versions [${{github.ref_name}}]
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  versions:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Rewrite VERSIONS.md from Docker Hub tags
+        run: ./scripts/update-versions.sh
+
+      - name: Commit VERSIONS.md
+        run: |
+          if ! git diff --quiet -- VERSIONS.md || [ -n "$(git ls-files --others --exclude-standard -- VERSIONS.md)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add VERSIONS.md
+            git commit -m "Update VERSIONS.md"
+            git push
+          fi

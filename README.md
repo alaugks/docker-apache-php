@@ -1,8 +1,10 @@
 # Apache PHP (with XDebug) Docker Image
 
-[![Docker Hub](https://img.shields.io/badge/dockerhub-images-important.svg?logo=Docker)](https://hub.docker.com/r/alaugks/apache-php/tags?ordering=name&name=8.3)
+[![Docker Hub](https://img.shields.io/badge/dockerhub-images-important.svg?logo=Docker)](https://hub.docker.com/r/alaugks/apache-php/tags?ordering=name&name=8.5)
 
-Based on `php:8.3.35-apache`.
+Based on Docker Official Image [`php:8.3.x-apache`](https://hub.docker.com/_/php/).
+
+All available tags are listed in [VERSIONS.md](VERSIONS.md), the tag scheme is described in [Versioning](#versioning).
 
 ## Table of Contents
 
@@ -11,6 +13,7 @@ Based on `php:8.3.35-apache`.
   - [Build without XDebug](#build-without-xdebug)
   - [Local Build Script](#local-build-script)
   - [Release (Docker Hub)](#release-docker-hub)
+- [Versioning](#versioning)
 - [Docker Compose Example](#docker-compose-example)
   - [Production (without XDebug)](#production-without-xdebug)
   - [Development (with XDebug)](#development-with-xdebug)
@@ -53,8 +56,8 @@ docker compose -f docker-compose.yml up -d --build
 
 ```bash
 ./build-local.sh
-./build-local.sh --tag 8.3.35
-./build-local.sh --tag 8.3.35 --with-xdebug
+./build-local.sh --tag 8.3.x
+./build-local.sh --tag 8.3.x --with-xdebug
 ```
 
 Run `./build-local.sh --help` for all options.
@@ -72,6 +75,24 @@ The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) b
 
 `docker-bake.hcl` uses the GitHub Actions cache and is therefore meant for CI. Use `./build-local.sh` for local builds.
 
+## Versioning
+
+Tags follow the scheme `<PHPVersion>-v<Feature>.<Fix>`, optionally followed by the `-xdebug` suffix:
+
+```
+8.3.x-v1.2
+8.3.x-v1.2-xdebug
+```
+
+| Part | Description | Example |
+|---|---|---|
+| `<PHPVersion>` | Full PHP version (`major.minor.patch`) of the base image `php:<PHPVersion>-apache` | `8.3.x` |
+| `v<Feature>` | Incremented for new features or changes to the image (e.g. new PHP modules, changed configuration) | `v1` |
+| `<Fix>` | Incremented for fixes, patches and security patches (e.g. updated base image or packages) | `2` |
+| `-xdebug` | Image variant with XDebug 3 (see [Build](#build)) | `-xdebug` |
+
+All published tags are listed in [VERSIONS.md](VERSIONS.md).
+
 ## Docker Compose Example
 
 ### Production (without XDebug)
@@ -80,7 +101,7 @@ The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) b
 services:
   php:
     container_name: your_projekt
-    image: alaugks/apache-php:8.3.35-v1.0
+    image: alaugks/apache-php:8.3.x-v1.0
     volumes:
       - ./app:/var/www/app
     ports:
@@ -95,7 +116,7 @@ services:
 services:
   php:
     container_name: your_projekt_local
-    image: alaugks/apache-php:8.3.35-v1.0-xdebug
+    image: alaugks/apache-php:8.3.x-v1.0-xdebug
     volumes:
       - ./app:/var/www/app
     ports:
@@ -145,7 +166,7 @@ Mount your own vhost file over the default one:
 ```yaml
 services:
   php:
-    image: alaugks/apache-php:8.3.35
+    image: alaugks/apache-php:8.3.x
     volumes:
       - ./app:/var/www/app
       - ./my-vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
@@ -183,7 +204,7 @@ ServerTokens Prod
 Additional modules can be enabled in a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.3.35
+FROM alaugks/apache-php:8.3.x
 RUN a2enmod headers expires
 ```
 
@@ -207,7 +228,7 @@ date.timezone = Europe/Berlin
 To start from one of the templates shipped with PHP (`php.ini-production` or `php.ini-development`), use a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.3.35
+FROM alaugks/apache-php:8.3.x
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 ```
 
@@ -215,7 +236,7 @@ Settings can be checked with `docker exec <container> php -i | grep <setting>` o
 
 ### XDebug
 
-Only in the `-xdebug` image. The defaults in `xdebug.ini`:
+Only in the `-xdebug` image. Xdebug works for web requests to the PHP application as well as for PHP CLI scripts (e.g. PHPUnit) run inside the Docker container (e.g. `docker exec`/`docker compose run`). The defaults in `xdebug.ini`:
 
 ```ini
 xdebug.mode=debug,develop,coverage
