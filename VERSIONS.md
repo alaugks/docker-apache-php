@@ -4,8 +4,12 @@ Tags of [alaugks/apache-php](https://hub.docker.com/r/alaugks/apache-php/tags) o
 
 | Tag | Digest | Last updated | Size (MB) | Architectures |
 |-----|--------|--------------|-----------|---------------|
+| [`8.5.12-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.5.12-v1.0-xdebug/images/sha256-25938ee49291b5a8340b7208c9b0cfc0ddf132cfed4bab6ffdfa0c0a26d8c9bb) | `8625563a1c54` | 2026-10-28 | 354 | amd64, arm64 |
+| [`8.5.12-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.5.12-v1.0/images/sha256-00227c541b5a8de528a21ee7189981aa2c9d74be6db8a292d6a905e7a93110b2) | `bc53c736171e` | 2026-10-28 | 353 | amd64, arm64 |
 | [`8.5.11-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0-xdebug/images/sha256-f213233537e329b060d57d1581d714e20873d3f1bd1c11a4f50e909f6f3fba5f) | `b9398cfb61b6` | 2026-10-01 | 354 | amd64, arm64 |
 | [`8.5.11-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.5.11-v1.0/images/sha256-908aa0bc0af363e3899026e6d85785023b7dcf538df3da625ecfb34461241fcb) | `085b81105cbc` | 2026-10-01 | 353 | amd64, arm64 |
+| [`8.4.27-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.27-v1.0-xdebug/images/sha256-8b9acd3d6ed8ffaa01b224769c7efd9bcdd1dda94910086e4031d62705d52366) | `ed0bcad170a6` | 2026-10-28 | 352 | amd64, arm64 |
+| [`8.4.27-v1.0`](https://hub.docker.com/layers/alaugks/apache-php/8.4.27-v1.0/images/sha256-fa3680bb7ab93bc1ea46df259f5742051afcaa9f8c794809b99537717aa61637) | `e8c8110b5825` | 2026-10-28 | 351 | amd64, arm64 |
 | [`8.4.26-v1.1-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.1-xdebug/images/sha256-4286f6d39e15a879987ba2cf0359b23abbbacfc77d10c622f594266153a276c3) | `766106a30699` | 2026-10-17 | 353 | amd64, arm64 |
 | [`8.4.26-v1.1`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.1/images/sha256-fa68c2682e784c11c0bcf250aa894bea1a33048043f50b9e8161806ff3f71c78) | `f9da8af17412` | 2026-10-17 | 352 | amd64, arm64 |
 | [`8.4.26-v1.0-xdebug`](https://hub.docker.com/layers/alaugks/apache-php/8.4.26-v1.0-xdebug/images/sha256-36296195ff2428fda4bbbce2a7353248631db4bfd6ee306cf729ea979e6e5826) | `8db61882dc7f` | 2026-10-01 | 352 | amd64, arm64 |
