@@ -31,8 +31,8 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Examples:"
             echo "  $0"
-            echo "  $0 --tag 8.2.34"
-            echo "  $0 --tag 8.2.34 --with-xdebug"
+            echo "  $0 --tag 8.2.29"
+            echo "  $0 --tag 8.2.29 --with-xdebug"
             echo "  $0 --with-xdebug"
             exit 0
             ;;

@@ -1,6 +1,9 @@
 name: Push Image
 run-name: Push Image [${{github.ref_name}}]
 on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+-v[0-9]+.[0-9]+'
   workflow_dispatch:
 
 jobs:
@@ -9,24 +12,30 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4.4.0
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4.4.1
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v4.7.0
+        uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
         with:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
 
       - name: Build and push (production + xdebug)
-        uses: docker/bake-action@v7.5.0
+        uses: docker/bake-action@59cb1203cd42bcefd40a1b6d73b589e48c86040e # v7.5.0
         env:
           TAG: ${{github.ref_name}}
         with:
           files: docker-bake.hcl
           push: true
+
+  versions:
+    needs: docker
+    permissions:
+      contents: write
+    uses: ./.github/workflows/versions.yml
