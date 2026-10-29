@@ -2,7 +2,7 @@
 
 [![Docker Hub](https://img.shields.io/badge/dockerhub-images-important.svg?logo=Docker)](https://hub.docker.com/r/alaugks/apache-php/tags?ordering=name&name=8.5)
 
-Based on `php:8.5.x-apache`.
+Based on Docker Official Image [`php:8.5.x-apache`](https://hub.docker.com/_/php/).
 
 All available tags are listed in [VERSIONS.md](VERSIONS.md), the tag scheme is described in [Versioning](#versioning).
 
