@@ -54,10 +54,13 @@ docker compose -f docker-compose.yml up -d --build
 
 ### Local Build Script
 
+The PHP version is defined by the `FROM` line of the [`Dockerfile`](Dockerfile), so check out the matching version branch first (e.g. `8.5`). `--tag` only names the image; replace `<PHPVersion>` with the version of that branch.
+
 ```bash
+git checkout <major>.<minor>
 ./build-local.sh
-./build-local.sh --tag 8.3.x
-./build-local.sh --tag 8.3.x --with-xdebug
+./build-local.sh --tag <PHPVersion>
+./build-local.sh --tag <PHPVersion> --with-xdebug
 ```
 
 Run `./build-local.sh --help` for all options.
