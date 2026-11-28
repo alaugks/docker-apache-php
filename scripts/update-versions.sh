@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-# Writes all tags of the Docker Hub repository to VERSIONS.md, preceded by the PHP
-# versions of the version branches (origin/X.Y) that have no tag on Docker Hub yet
+# Generates VERSIONS.md from VERSIONS.md.template by replacing the lines
+#   {{PENDING}}    PHP versions of the version branches (origin/X.Y) without a tag on Docker Hub
+#   {{PUBLISHED}}  table rows of all tags of the Docker Hub repository
 set -euo pipefail
 
 repo="alaugks/apache-php"
 github="https://github.com/alaugks/docker-apache-php"
 root="$(dirname "$0")/.."
 out="${root}/VERSIONS.md"
+template="$(dirname "$0")/VERSIONS.md.template"
 url="https://hub.docker.com/v2/repositories/${repo}/tags?page_size=100&ordering=name"
 
 tags=""
@@ -34,27 +36,16 @@ for branch in $branches; do
   fi
 done
 
-{
-  echo "# Versions"
-  echo
-  echo "## Not yet on Docker Hub"
-  echo
-  if [ -n "$pending" ]; then
-    echo "PHP versions in the Dockerfile of a branch without an image on Docker Hub."
-    echo "To build one of them locally, see [Local Build Script](README.md#local-build-script) in the README."
-    echo
-    echo "| PHP version | Branch |"
-    echo "|-------------|--------|"
-    printf '%s' "$pending"
-  else
-    echo "None."
-  fi
-  echo
-  echo "## Published"
-  echo
-  echo "Tags of [${repo}](https://hub.docker.com/r/${repo}/tags) on Docker Hub."
-  echo
-  echo "| Tag | Branch | Digest | Last updated | Size (MB) | Architectures |"
-  echo "|-----|--------|--------|--------------|-----------|---------------|"
-  printf '%s' "$rows"
-} > "$out"
+if [ -n "$pending" ]; then
+  pending="| PHP version | Branch |"$'\n'"|-------------|--------|"$'\n'"${pending}"
+else
+  pending="None."$'\n'
+fi
+
+while IFS= read -r line; do
+  case "$line" in
+    "{{PENDING}}") printf '%s' "$pending" ;;
+    "{{PUBLISHED}}") printf '%s' "$rows" ;;
+    *) printf '%s\n' "$line" ;;
+  esac
+done < "$template" > "$out"

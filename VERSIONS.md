@@ -1,9 +1,8 @@
 # Versions
 
-## Not yet on Docker Hub
+## Not published on Docker Hub
 
-PHP versions in the Dockerfile of a branch without an image on Docker Hub.
-To build one of them locally, see [Local Build Script](README.md#local-build-script) in the README.
+PHP versions in the Dockerfile of a branch without an image on Docker Hub. To build a version locally, see [Local Build Script](README.md#local-build-script).
 
 | PHP version | Branch |
 |-------------|--------|
@@ -11,6 +10,37 @@ To build one of them locally, see [Local Build Script](README.md#local-build-scr
 | `8.4.28` | [`8.4`](https://github.com/alaugks/docker-apache-php/tree/8.4) |
 | `8.3.37` | [`8.3`](https://github.com/alaugks/docker-apache-php/tree/8.3) |
 | `8.2.36` | [`8.2`](https://github.com/alaugks/docker-apache-php/tree/8.2) |
+
+## Release (Docker Hub)
+
+The GitHub Actions workflow `Push Image` runs when a version tag `<PHPVersion>-v<Feature>.<Fix>` is pushed or when it is started manually (`workflow_dispatch`). It builds and pushes both images in a single step using `docker buildx bake` and [`docker-bake.hcl`](docker-bake.hcl):
+
+| Image | Target |
+|---|---|
+| `alaugks/apache-php:<ref>` | `production` |
+| `alaugks/apache-php:<ref>-xdebug` | `xdebug` |
+
+`<ref>` is the branch or tag the workflow is run on. Both targets are built for `linux/amd64` and `linux/arm64`.
+
+`docker-bake.hcl` uses the GitHub Actions cache and is therefore meant for CI. Use [`./build-local.sh`](README.md#local-build-script) for local builds.
+
+## Versioning
+
+Tags follow the scheme `<PHPVersion>-v<Feature>.<Fix>`, optionally followed by the `-xdebug` suffix:
+
+```
+<PHPVersion>-v<Feature>.<Fix>
+<PHPVersion>-v<Feature>.<Fix>-xdebug
+```
+
+| Part | Description | Example |
+|---|---|---|
+| `<PHPVersion>` | Full PHP version (`major.minor.patch`) of the base image `php:<PHPVersion>-apache` | `<major>.<minor>.<patch>` |
+| `v<Feature>` | Incremented for new features or changes to the image (e.g. new PHP modules, changed configuration) | `v1` |
+| `<Fix>` | Incremented for fixes, patches and security patches (e.g. updated base image or packages) | `2` |
+| `-xdebug` | Image variant with XDebug 3 (see [Build](README.md#build)) | `-xdebug` |
+
+All published tags are listed under [Published](#published).
 
 ## Published
 
