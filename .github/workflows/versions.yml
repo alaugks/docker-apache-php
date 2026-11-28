@@ -3,17 +3,37 @@ run-name: Update Versions [${{github.ref_name}}]
 on:
   workflow_dispatch:
   workflow_call:
+  pull_request:
+    types: [closed]
 
 permissions:
   contents: write
 
 jobs:
   versions:
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
 
+      - name: Select branch
+        id: branch
+        env:
+          REF_TYPE: ${{github.ref_type}}
+          REF_NAME: ${{github.ref_name}}
+          BASE_REF: ${{github.event.pull_request.base.ref}}
+        run: |
+          if [ "$REF_TYPE" = "tag" ]; then
+            ref=$(cut -d. -f1,2 <<<"$REF_NAME") # 8.5.13-v1.0 -> 8.5
+          else
+            ref="$BASE_REF" # merged PR: target branch, otherwise empty (default)
+          fi
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{steps.branch.outputs.ref}}
+          fetch-depth: 0
 
       - name: Rewrite VERSIONS.md from Docker Hub tags
         run: ./scripts/update-versions.sh
