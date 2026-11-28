@@ -54,10 +54,13 @@ docker compose -f docker-compose.yml up -d --build
 
 ### Local Build Script
 
+The PHP version is defined by the `FROM` line of the [`Dockerfile`](Dockerfile), so check out the matching version branch first (e.g. `8.5`). `--tag` only names the image; replace `<PHPVersion>` with the version of that branch.
+
 ```bash
+git checkout <major>.<minor>
 ./build-local.sh
-./build-local.sh --tag 8.4.x
-./build-local.sh --tag 8.4.x --with-xdebug
+./build-local.sh --tag <PHPVersion>
+./build-local.sh --tag <PHPVersion> --with-xdebug
 ```
 
 Run `./build-local.sh --help` for all options.
@@ -80,13 +83,13 @@ The GitHub Actions workflow `Push Image` (manual trigger, `workflow_dispatch`) b
 Tags follow the scheme `<PHPVersion>-v<Feature>.<Fix>`, optionally followed by the `-xdebug` suffix:
 
 ```
-8.4.x-v1.2
-8.4.x-v1.2-xdebug
+8.5.11-v1.2
+8.5.11-v1.2-xdebug
 ```
 
 | Part | Description | Example |
 |---|---|---|
-| `<PHPVersion>` | Full PHP version (`major.minor.patch`) of the base image `php:<PHPVersion>-apache` | `8.4.x` |
+| `<PHPVersion>` | Full PHP version (`major.minor.patch`) of the base image `php:<PHPVersion>-apache` | `8.5.11` |
 | `v<Feature>` | Incremented for new features or changes to the image (e.g. new PHP modules, changed configuration) | `v1` |
 | `<Fix>` | Incremented for fixes, patches and security patches (e.g. updated base image or packages) | `2` |
 | `-xdebug` | Image variant with XDebug 3 (see [Build](#build)) | `-xdebug` |
@@ -101,7 +104,7 @@ All published tags are listed in [VERSIONS.md](VERSIONS.md).
 services:
   php:
     container_name: your_projekt
-    image: alaugks/apache-php:8.4.x-v1.0
+    image: alaugks/apache-php:8.5.11-v1.0
     volumes:
       - ./app:/var/www/app
     ports:
@@ -116,7 +119,7 @@ services:
 services:
   php:
     container_name: your_projekt_local
-    image: alaugks/apache-php:8.4.x-v1.0-xdebug
+    image: alaugks/apache-php:8.5.11-v1.0-xdebug
     volumes:
       - ./app:/var/www/app
     ports:
@@ -166,7 +169,7 @@ Mount your own vhost file over the default one:
 ```yaml
 services:
   php:
-    image: alaugks/apache-php:8.4.x
+    image: alaugks/apache-php:8.5.11
     volumes:
       - ./app:/var/www/app
       - ./my-vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
@@ -204,7 +207,7 @@ ServerTokens Prod
 Additional modules can be enabled in a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.4.x
+FROM alaugks/apache-php:8.5.11
 RUN a2enmod headers expires
 ```
 
@@ -228,7 +231,7 @@ date.timezone = Europe/Berlin
 To start from one of the templates shipped with PHP (`php.ini-production` or `php.ini-development`), use a derived image:
 
 ```dockerfile
-FROM alaugks/apache-php:8.4.x
+FROM alaugks/apache-php:8.5.11
 RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 ```
 
